@@ -16,3 +16,5 @@ public/system/*
 db/schema.rb
 db/sphinx/*
 config/development.sphinx.conf
+*~
+\#*
