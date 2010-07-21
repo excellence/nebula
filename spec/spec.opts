@@ -1,4 +1,3 @@
---colour
 --format html:rspec.html
 --loadby mtime
 --reverse

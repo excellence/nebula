@@ -26,3 +26,5 @@ config.action_controller.asset_host = "http://assets%d.evenebula.org"
 
 # Enable threaded mode
 # config.threadsafe!
+
+config.action_mailer.default_url_options = { :host => 'evenebula.org' }
