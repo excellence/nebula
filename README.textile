@@ -1,0 +1,23 @@
+h1. Welcome to Nebula
+
+Nebula is an issue tracking system for the Council of Stellar Management, the player-elected stakeholder in EVE Online.
+
+Issues here refer to problems, feature requests or other topics to be put forward to the CSM for consideration, who can then decide to take the proposal to CCP at a meeting.
+
+h2. Development
+
+Nebula is openly developed and planned. The requirements for developing Nebula are:
+
+ * Ruby 1.9.1 (recommended; should work with 1.8.7)
+ * Rails 2.3.8
+ * Linux/OSX development environments
+
+We will be using test driven development and continuous integration to ensure that we write a tool that performs to the spec we come up with through discussing with the CSM.
+
+Continuous integration will help ensure that no errors creep in before deploying the system to production.
+
+h2. Getting Involved
+
+It is highly recommended to join irc.coldfront.net #eve-dev and catch the devs in there to discuss getting involved before you just dive in. However, all are welcome to do so
+as long as they are vaugely technically competent :-)
+
