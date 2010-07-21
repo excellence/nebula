@@ -5,6 +5,6 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
-  # Scrub sensitive parameters from your log
-  # filter_parameter_logging :password
+  # Scrubs out any sensitive parameters in log files - note we don't filter API UID as this is useful for debugging and useless without a key
+  filter_parameter_logging :password, :password_confirm, :api_key, :key
 end

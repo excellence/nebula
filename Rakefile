@@ -5,6 +5,11 @@ require(File.join(File.dirname(__FILE__), 'config', 'boot'))
 
 require 'rake'
 require 'rake/testtask'
-require 'rake/rdoctask'
+begin
+  require 'hanna/rdoctask'
+rescue
+  puts "WARNING: You're missing the hanna gem. RDoc output may not appear as intended. Run 'sudo rake gems:install' in development to install it."
+  require 'rake/rdoctask'
+end
 
 require 'tasks/rails'
