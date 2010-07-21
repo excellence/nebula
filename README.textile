@@ -18,6 +18,5 @@ Continuous integration will help ensure that no errors creep in before deploying
 
 h2. Getting Involved
 
-It is highly recommended to join irc.coldfront.net #eve-dev and catch the devs in there to discuss getting involved before you just dive in. However, all are welcome to do so
-as long as they are vaugely technically competent :-)
+It is highly recommended to join irc.coldfront.net #eve-dev and catch the devs in there to discuss getting involved before you just dive in. However, all are welcome to do so as long as they are vaugely technically competent :-)
 

@@ -6,7 +6,7 @@
 # no regular words or you'll be exposed to dictionary attacks.
 ActionController::Base.session = {
   :key         => '_nebula_session',
-  :secret      => 'ff0d6fec7df84d8289ae90ac7c5a929477d28ab093a6a481e227ea5132a66dbfd112952b0269300c93806a9baf4dbc04c59c630a4ff8b0ff150a3e94c005b731'
+  :secret      => 'ff0d6fec7df84afijia571b233a14341d5d2b2d4f423655365003631d2b09431c642c5f613d5257jfiojfioewjiowerjiowerjwioerjASDASDLALSDKd8289ae90ac7c5a929477d28ab093a6a481e227ea5132a66dbfd112952b0269300c93806a9baf4dbc04c59c630a4ff8b0ff150a3e94c005b731'
 }
 
 # Use the database for sessions instead of the cookie-based default,
