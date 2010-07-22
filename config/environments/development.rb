@@ -17,4 +17,3 @@ config.action_controller.perform_caching             = false
 config.action_mailer.raise_delivery_errors = false
 
 # Development-only gems
-config.gem 'hanna', :lib => false

@@ -20,3 +20,32 @@ h2. Getting Involved
 
 It is highly recommended to join irc.coldfront.net #eve-dev and catch the devs in there to discuss getting involved before you just dive in. However, all are welcome to do so as long as they are vaugely technically competent :-)
 
+h2. Testing Nebula
+
+Nebula uses test driven development. To run the tests and see what passes and what fails, run
+
+  rake spec
+  
+This will run all the specs in the spec folder, and produce output in rspec.html in the root directory of the project.
+
+h2. Getting Started with Nebula
+
+To develop for Nebula you need to install some gems. You'll have to install bundler first:
+
+  sudo gem install bundler
+  
+Then you can just let it do the work for you:
+
+  sudo bundle install
+  
+You'll need to create a file, config/initializers/encryption.rb, which has the following line:
+
+  API_KEY_ENCRYPTION_KEY = 'LOADS OF GIBBERISH (rake secret can generate some)'
+  
+This key is used to encrypt all stored API keys. Store the file securely! Do not lose it or you will lose all keys in the DB!
+  
+This should install all the gems you need in your system gems.
+
+Production environments can be set up using:
+
+  sudo bundle install --without development test

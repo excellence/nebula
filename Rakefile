@@ -7,8 +7,7 @@ require 'rake'
 require 'rake/testtask'
 begin
   require 'hanna/rdoctask'
-rescue
-  puts "WARNING: You're missing the hanna gem. RDoc output may not appear as intended. Run 'sudo rake gems:install' in development to install it."
+rescue Exception => e
   require 'rake/rdoctask'
 end
 

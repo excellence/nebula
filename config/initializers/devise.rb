@@ -44,7 +44,7 @@ Devise.setup do |config|
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
   # time the user will be asked for credentials again.
-  config.timeout_in = 30.minutes
+  config.timeout_in = 1.hour
 
   # ==> Configuration for :lockable
   # Number of authentication tries before locking an account.
@@ -78,11 +78,11 @@ Devise.setup do |config|
   # accessing "/users/sign_in", it knows you are accessing an User. This makes
   # routes as "/sign_in" not possible, unless you tell Devise to use the default
   # scope, setting true below.
-  config.use_default_scope = true
+  # config.use_default_scope = true
 
   # Configure the default scope used by Devise. By default it's the first devise
   # role declared in your routes.
-  config.default_scope = :user
+  # config.default_scope = :user
 
   # If you want to use other strategies, that are not (yet) supported by Devise,
   # you can configure them inside the config.warden block. The example below

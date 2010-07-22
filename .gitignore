@@ -19,3 +19,7 @@ config/development.sphinx.conf
 *~
 \#*
 rspec.html
+coverage
+coverage/*
+config/initializers/encryption.rb
+.bundle
