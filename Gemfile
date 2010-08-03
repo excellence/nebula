@@ -5,7 +5,7 @@ gem 'rdoc-data'
 gem 'test-unit', '1.2.3'
 gem 'warden'
 gem 'devise', '1.0.8'
-gem 'attr_encrypted'
+gem 'attr_encrypted', :git=>'git://github.com/cgod/attr_encrypted.git' # till main branch supports ruby 1.9
 gem 'pg'
 gem 'haml'
 group :test do

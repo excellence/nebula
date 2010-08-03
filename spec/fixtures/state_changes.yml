@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  issue_id: 1
+  from_state_id: 1
+  to_state_id: 2
+  user_id: 1
+  reason: Approved by CCP
+
+two:
+  issue_id: 1
+  from_state_id: 1
+  to_state_id: 3
+  user_id: 1
+  reason: Rejected by the CSM for being bloody stupid

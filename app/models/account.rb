@@ -4,7 +4,7 @@
 class Account < ActiveRecord::Base
   
   attr_accessible :api_key, :api_uid, :character_id
-  attr_encrypted :api_key, :key=>API_KEY_ENCRYPTION_KEY
+  attr_encrypted :api_key, :key=>API_KEY_ENCRYPTION_KEY, :encode => true
   
   belongs_to :user
   

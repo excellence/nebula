@@ -3,13 +3,8 @@
 one:
   user_id: 1
   character_id: 1
-  uid: 1
-  key: MyString
+  api_uid: 1
+  encrypted_api_key: '6Ax/k8kVcLEQ4GmvfU9iYuSTSaOZvmrltkOGLgDT6boDGQn/JI80v798Z9WM\neoV2P4ed1rMM5Me9DKjaPdVjujM7x5K8t8rGhR14IiVsT0Q=\n'
   validated: false
 
-two:
-  user_id: 1
-  character_id: 1
-  uid: 1
-  key: MyString
-  validated: false
+

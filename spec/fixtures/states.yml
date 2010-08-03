@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: Open
+  description: Open state
+
+two:
+  name: Accepted
+  description: Accepted state
+  
+three:
+  name: Rejected
+  description: Rejected state

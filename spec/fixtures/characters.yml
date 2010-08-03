@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 1
+  account_id: 1
+  name: Test Character
+  corporation_id: 1
+  alliance_id: 1
+  gender: Male
+  race: Caldari
+  bloodline: Deteis

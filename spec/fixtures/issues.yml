@@ -1,0 +1,10 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  state_id: 1
+  state_change_id: 1
+  character_id: 1
+  user_id: 1
+  title: Test Issue Title
+  body: Test Issue Content
+  votes: 0
