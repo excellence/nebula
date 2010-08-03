@@ -1,0 +1,55 @@
+!!! Strict
+%html{html_attrs('en-GB')}
+  %head
+    -if @title 
+      %title= "#{RAILS_ENV=='production' ? '' : 'DEV | '}#{@title} | Nebula - CSM Issue Tracker"
+    -else
+      %title= "#{RAILS_ENV=='production' ? '' : 'DEV | '}Nebula - CSM Issue Tracker"
+    %meta{:content => "Nebula is an issue tracker for EVE Online's Council of Stellar Management, allowing players to voice their opinion, vote for issues and view feedback", :name => 'description'}
+    %meta{:content => 'eve, online, eve online, csm, council, stellar, management, issue, tracker, nebula', :name => 'keywords'}
+    = javascript_include_tag 'jquery'
+    = stylesheet_link_tag 'application'
+    %link{:rel=>"search",:type=>"application/opensearchdescription+xml",:title=>"Nebula Search",:href=>"/search.xml"}/
+  %body
+    #container
+      #header
+        %a{:href => '/'}
+          = image_tag 'logo.png', :alt => 'Nebula', :style => 'border:0px;'
+        #search
+          - form_tag '/issues/search', :id=>'search_form' do
+            #search_field= text_field_tag :q, (params[:q] or 'Search for an issue')
+      #nav_outer
+        #nav
+          =link_to 'Top Issues', {:controller => 'issues', :action => 'index'}, :class=>'nav_item'
+          =link_to 'New Issues', {:controller => 'issues', :action => 'index'}, :class=>'nav_item'
+      #content_outer
+        -if flash[:error]
+          #error
+            #error_text=flash[:error]
+        -if flash[:info]
+          #info
+            #info_text=flash[:info]
+        #content  
+          =@content_for_layout
+
+    #footer_outer
+      #footer
+        #left-side
+          nebula &#149; eve online is copyright &copy; 2010 ccp games hf
+        #right-side
+          produced by
+          = link_to 'team excellence', 'http://github.com/excellence'
+          &#149;
+          = link_to 'source code', 'http://github.com/excellence/nebula'
+          &#149;
+          all times in utc (eve time)
+    :javascript
+      $("#q").focus(function() {
+        if( this.value == this.defaultValue ) {
+          this.value = "";
+        }
+      }).blur(function() {
+        if( !this.value.length ) {
+          this.value = this.defaultValue;
+        }
+      });
