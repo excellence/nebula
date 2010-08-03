@@ -3,7 +3,7 @@ class Character < ActiveRecord::Base
   belongs_to :alliance
   belongs_to :account
   belongs_to :user
-  has_many :issues
+  has_many :proposals
   
   validates_presence_of :user_id
   validates_presence_of :account_id

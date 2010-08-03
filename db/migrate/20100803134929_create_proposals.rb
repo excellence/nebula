@@ -1,6 +1,6 @@
-class CreateIssues < ActiveRecord::Migration
+class CreateProposals < ActiveRecord::Migration
   def self.up
-    create_table :issues do |t|
+    create_table :proposals do |t|
       t.integer :state_id
       t.integer :state_change_id
       t.integer :character_id
@@ -10,13 +10,13 @@ class CreateIssues < ActiveRecord::Migration
       t.integer :votes, :default => 0
       t.timestamps
     end
-    add_index :issues, :votes
-    add_index :issues, :character_id
-    add_index :issues, :user_id
-    add_index :issues, :state_id
+    add_index :proposals, :votes
+    add_index :proposals, :character_id
+    add_index :proposals, :user_id
+    add_index :proposals, :state_id
   end
 
   def self.down
-    drop_table :issues
+    drop_table :proposals
   end
 end

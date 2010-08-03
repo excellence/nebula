@@ -2,10 +2,10 @@
 %html{html_attrs('en-GB')}
   %head
     -if @title 
-      %title= "#{RAILS_ENV=='production' ? '' : 'DEV | '}#{@title} | Nebula - CSM Issue Tracker"
+      %title= "#{RAILS_ENV=='production' ? '' : 'DEV | '}#{@title} | Nebula - CSM Proposal Tracker"
     -else
-      %title= "#{RAILS_ENV=='production' ? '' : 'DEV | '}Nebula - CSM Issue Tracker"
-    %meta{:content => "Nebula is an issue tracker for EVE Online's Council of Stellar Management, allowing players to voice their opinion, vote for issues and view feedback", :name => 'description'}
+      %title= "#{RAILS_ENV=='production' ? '' : 'DEV | '}Nebula - CSM Proposal Tracker"
+    %meta{:content => "Nebula is proposal tracker for EVE Online's Council of Stellar Management, allowing players to voice their opinion, vote on proposals and view feedback", :name => 'description'}
     %meta{:content => 'eve, online, eve online, csm, council, stellar, management, issue, tracker, nebula', :name => 'keywords'}
     = javascript_include_tag 'jquery-1.4.2.min.js', 'jquery-ui-1.8.custom.min.js'
     = stylesheet_link_tag 'application', 'jquery-ui-1.8.custom.css'
@@ -16,12 +16,12 @@
         %a{:href => '/'}
           = image_tag 'logo.png', :alt => 'Nebula', :style => 'border:0px;'
         #search
-          - form_tag '/issues/search', :id=>'search_form' do
-            #search_field= text_field_tag :q, (params[:q] or 'Search for an issue')
+          - form_tag '/proposals/search', :id=>'search_form' do
+            #search_field= text_field_tag :q, (params[:q] or 'Search for a proposal')
       #nav_outer
         #nav
-          =link_to 'Top Issues', {:controller => 'issues', :action => 'index'}, :class=>'nav_item'
-          =link_to 'New Issues', {:controller => 'issues', :action => 'index'}, :class=>'nav_item'
+          =link_to 'Top Proposals', {:controller => 'proposals', :action => 'index'}, :class=>'nav_item'
+          =link_to 'New Proposals', {:controller => 'proposals', :action => 'index'}, :class=>'nav_item'
       #content_outer
         -if flash[:error]
           #error

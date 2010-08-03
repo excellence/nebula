@@ -3,7 +3,7 @@ require 'spec_helper'
 describe StateChange do
   before(:each) do
     @valid_attributes = {
-      :issue_id => 1,
+      :proposal_id => 1,
       :from_state_id => 1,
       :to_state_id => 1,
       :user_id => 1,

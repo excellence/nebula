@@ -1,5 +1,5 @@
 class State < ActiveRecord::Base
-  has_many :issues
+  has_many :proposals
   has_many :changes_from_state, :class_name => "StateChange", :foreign_key => "from_state_id"
   has_many :changes_to_state, :class_name => "StateChange", :foreign_key => "to_state_id"
   validates_presence_of :name

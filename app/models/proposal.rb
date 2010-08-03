@@ -1,4 +1,4 @@
-class Issue < ActiveRecord::Base
+class Proposal < ActiveRecord::Base
   belongs_to :state
   belongs_to :state_change
   belongs_to :character
