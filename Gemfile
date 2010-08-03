@@ -10,4 +10,5 @@ gem 'pg'
 gem 'haml'
 group :test do
   gem 'syntax'
+  gem 'rspec'
 end
