@@ -7,8 +7,8 @@
       %title= "#{RAILS_ENV=='production' ? '' : 'DEV | '}Nebula - CSM Issue Tracker"
     %meta{:content => "Nebula is an issue tracker for EVE Online's Council of Stellar Management, allowing players to voice their opinion, vote for issues and view feedback", :name => 'description'}
     %meta{:content => 'eve, online, eve online, csm, council, stellar, management, issue, tracker, nebula', :name => 'keywords'}
-    = javascript_include_tag 'jquery'
-    = stylesheet_link_tag 'application'
+    = javascript_include_tag 'jquery-1.4.2.min', 'jquery-ui-1.8.custom.min'
+    = stylesheet_link_tag 'application', 'jquery-ui-1.8.custom'
     %link{:rel=>"search",:type=>"application/opensearchdescription+xml",:title=>"Nebula Search",:href=>"/search.xml"}/
   %body
     #container

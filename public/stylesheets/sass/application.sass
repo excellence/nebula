@@ -1,0 +1,198 @@
+!link_col = #77DDC9
+!reallydark = #131313
+!dark = #282828
+!darkish = #2D2D2D
+!light = #3E3E3E
+!title_col = #FFE87F
+!highlight_bg = #525252
+!font_family = "Arial, Lucida Sans Unicode, Lucida Grande, sans-serif"
+!code_family = "Lucida Console, Monaco, monospace, Courier New, Bitstream Vera Sans Mono"
+// Reset
+*
+  :padding 0px
+  :line-height 1.5em
+  :margin 0px
+
+body
+  :background url("/images/background.jpg") top center no-repeat #121212
+  :color #FFF
+  :font
+    :family = !font_family
+    :size 11px
+// Reset basic stuff how we want it to be.
+a
+  :font-weight bold
+  :color = !link_col
+  :text-decoration none
+
+ul
+  :margin-top 7px
+  :margin-left 10px
+li
+  :margin-bottom 3px
+  :padding-left 10px
+ol
+  :margin-left 25px
+  :list-style decimal-leading-zero
+h1,h2,h3,h4
+  :color = !title_col
+  :text-transform uppercase
+  :margin-left 5px
+h1
+  :margin-left 15px
+  :font-size 28px
+h2  
+  :font-size 20px
+h3
+  :font-size 18px
+h4
+  :font-size 16px
+h5
+  :color = !title_col
+  :font-size 14px
+h6
+  :color = !title_col
+  :font-size 12px
+p
+  :margin 3px
+    :left 8px
+
+// Table layout stuff
+table
+  :width 100%
+th
+  :text-align left
+  :font-size 12px
+
+// Forms
+#content_outer form
+  :padding 5px
+  :margin 10px
+#content_outer label
+  :width 160px
+  :font-weight bold
+  :float left
+  :text-align right
+  :display block
+  :margin-right 10px
+  :margin-top 7px
+  :text-transform uppercase
+#content_outer .button
+  :margin-left 170px
+#content_outer input
+  :padding 4px
+  :margin 3px
+  :font-size 14px
+#content_outer .checkbox
+  :margin-top 9px
+// Container
+#container
+  :width 950px
+  :margin auto
+    :top 30px
+    :bottom 40px
+// Header
+#header
+  :padding-top 5px
+// Nav bar and search
+#nav_outer
+  :margin-top 10px
+  :background url("/images/border.png") repeat
+  :width 100%
+  :padding 10px
+#search
+  :text-transform uppercase
+  :vertical-align middle
+  :text-align middle
+  :float right
+  :margin 5px
+  input
+    :text-transform uppercase
+    :height 20px
+    :width 275px
+    :font-weight bold
+    :padding 5px
+  a
+    :float left
+#nav
+  :background = !dark
+  :width 100%
+  :height 45px
+.nav_item
+  :border
+    :left = 1px solid !light
+  :float left
+  :height 32px
+  :padding
+    :top 13px
+    :left 29px
+    :right 30px
+  :display block
+  :color #FFF
+  :text-transform uppercase
+// Contents
+#content_outer
+  :background url("/images/border.png") repeat
+  :width 100%
+  :padding 10px
+  :margin-top 25px
+#content
+  :background = !reallydark
+  :width 100%
+  :padding-bottom 7px
+#content_inner
+  :margin 7px
+
+#footer_outer
+  :color #FFF
+  :display visible
+  :width 100%
+  :background = !light
+  :opacity 0.9
+  :filter alpha(opacity=90)
+  :height 20px
+  :position fixed
+  :bottom 0px
+  :left 0px
+  :z-index 100
+  #footer
+    :margin auto
+    :width 950px
+    :height 20px
+  #right-side
+    :float right
+  #left-side
+    :float left
+.red
+  :color #FF0000
+.green
+  :color #00FF00
+  
+#error
+  :background = !dark
+  :height 25px
+  :width 100%
+  :clear both
+  :border-bottom 2px solid #FF0000
+  :border-top 2px solid #FF0000
+  :margin-bottom 10px
+#error_text
+  :padding 5px
+    :left 20px
+    :top 2px
+  :font-size 110%
+  :font-weight bold
+#info
+  :background = !dark
+  :height 25px
+  :width 100%
+  :clear both
+  :border-bottom 2px solid #00FF00
+  :border-top 2px solid #00FF00
+  :margin-bottom 10px
+#info_text
+  :padding 5px
+    :left 20px
+    :top 2px
+  :font-size 110%
+  :font-weight bold
