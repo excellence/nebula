@@ -18,12 +18,14 @@ class Proposal < ActiveRecord::Base
   # The value can be either 1, -1 or 0. 1 or -1 will vote positively or negatively as appropriate; 0 will delete an existing vote.
   def vote!(account_id, value)
     account = Account.find(account_id, :include=>[:user, :character])
-    raise ArgumentError, "No such account" if !account
-    raise ArgumentError, "Invalid value for vote passed" if value not in [-1, 0, 1] # Stops errant votes with wrong values
+    raise ArgumentError, "No such account" unless account
+    raise ArgumentError, "Invalid value for vote passed" unless [-1, 0, 1].include?(value) # Stops errant votes with wrong values
     Proposal.transaction do
       Vote.transaction do
+        # Find any existing vote for this proposal/account
         v = Vote.find(:first, :conditions => {:proposal_id => self.id, :account_id => account_id })
         if !v and value != 0
+          # If we don't exist yet and we're not trying to delete a vote:
           v = Vote.new
           v.account = account
           v.user = account.user
@@ -34,6 +36,7 @@ class Proposal < ActiveRecord::Base
           self.votes = self.votes + value
           self.save!
         else
+          # We've got a vote already, so we want to update/delete that existing vote.
           # Setting to zero means destroy the vote
           if value == 0
             v.destroy!
