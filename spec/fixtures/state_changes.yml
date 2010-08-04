@@ -8,7 +8,7 @@ one:
   reason: Approved by CCP
 
 two:
-  proposal_id: 1
+  proposal_id: 2
   from_state_id: 1
   to_state_id: 3
   user_id: 1

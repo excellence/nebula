@@ -7,6 +7,7 @@ class Account < ActiveRecord::Base
   attr_encrypted :api_key, :key=>API_KEY_ENCRYPTION_KEY, :encode => true
   
   belongs_to :user
+  has_many :votes
   
   validates_presence_of :user_id
   validates_presence_of :api_key

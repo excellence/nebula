@@ -1,0 +1,22 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  proposal_id: 1
+  user_id: 1
+  character_id: 1
+  account_id: 1
+  value: 1
+
+two:
+  proposal_id: 1
+  user_id: 1
+  character_id: 1
+  account_id: 1
+  value: 1
+
+three:
+  proposal_id: 1
+  user_id: 1
+  character_id: 1
+  account_id: 1
+  value: -1

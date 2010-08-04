@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  proposal_id: 1
+  user_id: 1
+  character_id: 1
+  title: Amendment Test 1
+  body: I think that the proposal is MADNESS: I would fix it like this.
+
+two:
+  proposal_id: 1
+  user_id: 1
+  character_id: 1
+  title: Amendment Test 2
+  body: I think this is an awesome proposal but it would be vastly improved with kittens

@@ -4,7 +4,10 @@ class Character < ActiveRecord::Base
   belongs_to :account
   belongs_to :user
   has_many :proposals
-  
+  has_many :votes
+  has_many :amendments
+  has_many :state_changes
+    
   validates_presence_of :user_id
   validates_presence_of :account_id
   validates_presence_of :corporation_id
