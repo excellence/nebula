@@ -12,7 +12,7 @@ class Proposal < ActiveRecord::Base
   validates_presence_of :state_change_id
   validates_presence_of :character_id
   validates_presence_of :user_id
-  
+  attr_protected :score
   # This is the main method for doing any voting. All voting should basically use this.
   # Pass in an Account ID, and a value.
   # The value can be either 1, -1 or 0. 1 or -1 will vote positively or negatively as appropriate; 0 will delete an existing vote.
@@ -33,31 +33,41 @@ class Proposal < ActiveRecord::Base
           v.proposal = self
           v.value = value
           v.save!
-          self.votes = self.votes + value
+          self.add_vote(v)
           self.save!
         else
           # We've got a vote already, so we want to update/delete that existing vote.
           # Setting to zero means destroy the vote
           if value == 0
             v.destroy!
-            self.votes = self.votes - value
+            self.remove_vote(v)
             self.save!
           else
             # Otherwise, we want to update the vote with the new value.
             v.value = value
             v.save!
-            self.votes = self.votes - v.value
-            self.votes = self.votes + value
+            self.remove_vote(v)
+            self.add_vote(v)
             self.save!
           end
         end
       end
     end
   end
-  # This sets the number of votes stored in the Proposal's votes column to be the number of votes currently out there and enabled.
+  # Remove a vote from the score - this is not updating models, just the proposal's score column
+  def remove_vote(vote)
+    self.score = self.score - vote.value
+  end
+  # Add a vote to the score - this is not updating models, just the proposal's score column
+  def add_vote(vote)
+    self.score = self.score + vote.value
+  end
+  
+  # This sets the score stored in the Proposal's score column to be the total score of all votes enabled on this proposal
+  # This should not be called often - all methods working on Votes and Proposals should always update the score column accordingly.
   # Messy and hits everything. Don't do it unless you have to.
-  def recalculate_votes!
-    self.votes = Vote.find(:all, :conditions => ['proposal_id = ? AND value IN (-1, 1) AND enabled',self.id], :select => 'value').map{|v|v.value}.sum
+  def recalculate_score!
+    self.score = Vote.find(:all, :conditions => ['proposal_id = ? AND value IN (-1, 1) AND enabled',self.id], :select => 'value').map{|v|v.value}.sum
     self.save!
   end
   

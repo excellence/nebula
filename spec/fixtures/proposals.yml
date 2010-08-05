@@ -7,7 +7,7 @@ one:
   user_id: 1
   title: Test Proposal Title
   body: Test Proposal Content
-  votes: 0
+  score: 0
   
 two:
   state_id: 3
@@ -16,4 +16,4 @@ two:
   user_id: 1
   title: Approved Proposal Title
   body: Approved Proposal Content
-  votes: 0
+  score: 0

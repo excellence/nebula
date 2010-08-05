@@ -15,7 +15,7 @@ class Vote < ActiveRecord::Base
   validates_presence_of :account_id
   validates_presence_of :proposal_id
   validates_presence_of :character_id
-  validate :check_for_duplicates
+  validate_on_create :check_for_duplicates
   
   # This method will stop duplicate votes being created. There is also a database key to stop this just in case, since we won't be using table locks.
   def check_for_duplicates
@@ -30,10 +30,10 @@ class Vote < ActiveRecord::Base
       Vote.transaction do
         if enabled
           self.enabled = true
-          self.proposal.votes = self.proposal.votes + self.value
+          self.proposal.add_vote(self)
         else
           self.enabled = false
-          self.proposal.votes = self.proposal.votes - self.value
+          self.proposal.remove_vote(self)
         end
         self.save!
         self.proposal.save!
