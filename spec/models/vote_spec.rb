@@ -49,18 +49,19 @@ describe Vote do
     @vote.proposal = Proposal.find(:first)
     @vote.value = 1
     @vote.save!
-    t = @vote.proposal.score
-    @vote.disable!
-    t.should == (@vote.proposal.score - 1)
-    @vote.enable!
-    t.should == @vote.proposal.score
-    @vote.value = -1
-    @vote.save!
-    t = @vote.proposal.score
-    @vote.disable!
-    t.should == (@vote.proposal.score + 1)
-    @vote.enable!
-    t.should == @vote.proposal.score
+
+    lambda do
+      @vote.disable!
+    end.should change { @vote.proposal.score }.by(-1)
+
+    lambda do
+      @vote.enable!
+    end.should change { @vote.proposal.score }.by(1)
+
+    lambda do
+      @vote.disable!
+      @vote.enable!
+    end.should change { @vote.proposal.score }.by(0)
   end
   
 end

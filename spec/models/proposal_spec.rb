@@ -108,8 +108,8 @@ describe Proposal do
     @proposal.attributes = @valid_attributes
     @proposal.save!
     a = Account.find(:first)
-    @proposal.vote!(a.id, 1)
     @proposal.vote!(a.id, -1)
+    @proposal.vote!(a.id, 1)
     @proposal.score.should == 1
     @proposal.votes.length.should == 1
     @proposal.votes.first.account_id.should == a.id

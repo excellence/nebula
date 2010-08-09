@@ -39,14 +39,14 @@ class Proposal < ActiveRecord::Base
           # We've got a vote already, so we want to update/delete that existing vote.
           # Setting to zero means destroy the vote
           if value == 0
-            v.destroy!
+            v.destroy
             self.remove_vote(v)
             self.save!
           else
             # Otherwise, we want to update the vote with the new value.
+            self.remove_vote(v)
             v.value = value
             v.save!
-            self.remove_vote(v)
             self.add_vote(v)
             self.save!
           end
