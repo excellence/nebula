@@ -7,11 +7,18 @@ describe Amendment do
       :user_id => 1,
       :character_id => 1,
       :title => "value for title",
-      :body => "value for body"
+      :body => "value for body",
+      :approving_user_id=>1,
+      :approving_character_id=>1  
     }
+    @amendment = Amendment.new
   end
 
-  it "should create a new instance given valid attributes" do
-    Amendment.create!(@valid_attributes)
+  it "should be valid given valid attributes" do
+    @amendment.attributes = @valid_attributes
+    @amendment.should be_valid
+  end
+  it "should not be valid given no attributes" do
+    @amendment.should_not be_valid
   end
 end

@@ -9,12 +9,91 @@ class Account < ActiveRecord::Base
   belongs_to :user
   belongs_to :character
   has_many :votes
+  has_many :characters
   
   validates_presence_of :user_id
   validates_presence_of :api_key
   validates_length_of :api_key, :is=>64
   validates_presence_of :api_uid
   validates_numericality_of :api_uid
-  validates_presence_of :character_id
-  validates_numericality_of :character_id
+  
+  before_save :handle_vote_status
+
+  # This method handles marking votes this account owns as enabled or disabled when the state of the account changes based on API validation failing or not.
+  # FIXME: Currently touches all votes even if there's nothing to do, ie updating API key will force refresh and enable all votes when validated.
+  def handle_vote_status
+    if self.validated? 
+      self.votes.each do |vote|
+        vote.enable!
+      end
+    else
+      self.votes.each do |vote|
+        vote.disable!
+      end
+    end
+  end
+  
+  # Primary method for updating this account against the EVE Online API.
+  # Calling this method will poke the API server and update stored details, and mark this account as validated or not as appropriate, updating the timestamp if valid.
+  def update!
+    begin
+      highest_sp = 0
+      highest_sp_character = nil
+      self.reve.characters.each do |character|
+        sheet = self.reve.character_sheet(:characterid=>character.id)
+        c = Character.find_or_initialize_by_id(sheet.id)
+        # associations
+        c.user_id = self.user_id
+        c.account_id = self.id
+        # attributes
+        c.name = sheet.name
+        c.gender = sheet.gender
+        c.race = sheet.race
+        c.bloodline = sheet.bloodline
+        c.save!
+        # Now handle corporation loading
+        corpsheet = self.reve.corporation_sheet(:characterid=>character.id)
+        corp = Corporation.find_or_initialize_by_id(corpsheet.id)
+        corp.name = corpsheet.name
+        corp.ticker = corpsheet.ticker
+        corp.alliance_id = corpsheet.alliance_id
+        # Check to see if we have this alliance - if not, update from the API.
+        # TODO: This takes _ages_ so we should do this on a cronjob to ensure we don't do this often in-request
+        if corp.alliance_id and corp.alliance_id > 0 and !Alliance.find_by_id(corp.alliance_id)
+          Alliance.do_update
+        end
+        corp.member_count = corpsheet.member_count
+        corp.save!
+        # Calculate the SP total - we don't store this - and mark this as the highest SP char on this account if appropriate so we can set this as the primary character later.
+        sp_total = 0
+        sheet.skills.each do |skill|
+          sp_total += skill.skillpoints
+        end
+        if sp_total > highest_sp
+          highest_sp = sp_total
+          highest_sp_character = c
+        end
+      end
+      # Set the account's active character to the char with the most SP if this is not set yet.
+      if !self.character
+        self.character = highest_sp_character
+      end
+    # TODO: More debugging output in these blocks
+    rescue Reve::Exceptions::AuthenticationFailure => e 
+      self.validated = false
+      self.save
+    rescue Reve::Exceptions::LoginDeniedByAccountStatus => e 
+      self.validated = false
+      self.save
+    rescue Reve::Exceptions::ReveError => e 
+      self.validated = false
+      self.save
+    end
+  end
+  
+  # Helper: Returns a new Reve::API object with API key, API user ID and character ID already initialized
+  def reve
+    Reve::API.new(self.api_uid, self.api_key, self.character_id)
+  end
+  
 end
