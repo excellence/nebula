@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<eveapi version="2">
+  <currentTime>2010-08-18 14:33:56</currentTime>
+  <result>
+    <characterID>642510006</characterID>
+    <name>Makurid</name>
+    <race>Caldari</race>
+    <bloodLine>Deteis</bloodLine>
+    <gender>Male</gender>
+    <corporationName>Stoneage Shipyards</corporationName>
+    <corporationID>1594257695</corporationID>
+    <cloneName>Clone Grade Nu</cloneName>
+    <cloneSkillPoints>25600000</cloneSkillPoints>
+    <balance>154755581.41</balance>
+    <attributeEnhancers>
+      <memoryBonus>
+        <augmentatorName>Memory Augmentation - Standard</augmentatorName>
+        <augmentatorValue>4</augmentatorValue>
+      </memoryBonus>
+      <intelligenceBonus>
+        <augmentatorName>Cybernetic Subprocessor - Standard</augmentatorName>
+        <augmentatorValue>4</augmentatorValue>
+      </intelligenceBonus>
+      <willpowerBonus>
+        <augmentatorName>Neural Boost - Standard</augmentatorName>
+        <augmentatorValue>4</augmentatorValue>
+      </willpowerBonus>
+      <perceptionBonus>
+        <augmentatorName>Ocular Filter - Standard</augmentatorName>
+        <augmentatorValue>4</augmentatorValue>
+      </perceptionBonus>
+    </attributeEnhancers>
+    <attributes>
+      <intelligence>10</intelligence>
+      <memory>5</memory>
+      <charisma>5</charisma>
+      <perception>14</perception>
+      <willpower>5</willpower>
+    </attributes>
+    <rowset name="skills" key="typeID" columns="typeID,skillpoints,level,unpublished">
+      <row typeID="3396" skillpoints="750" level="1" />
+      <row typeID="12188" skillpoints="2829" level="2" />
+      <row typeID="12192" skillpoints="4091" level="2" />
+      <row typeID="21718" skillpoints="135765" level="4" />
+      <row typeID="3454" skillpoints="7072" level="2" />
+    </rowset>
+    <rowset name="certificates" key="certificateID" columns="certificateID" />
+    <rowset name="corporationRoles" key="roleID" columns="roleID,roleName" />
+    <rowset name="corporationTitles" key="titleID" columns="titleID,titleName" />
+  </result>
+  <cachedUntil>2010-08-18 15:33:56</cachedUntil>
+</eveapi>

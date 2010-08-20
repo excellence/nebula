@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<eveapi version="2">
+  <currentTime>2010-08-20 22:31:21</currentTime>
+  <result>
+      <row name="The Initiative." shortName="INIT." allianceID="1900696668" executorCorpID="1639878825" memberCount="1698" startDate="2008-10-03 22:56:00">
+        <rowset name="memberCorporations" key="corporationID" columns="corporationID,startDate">
+          <row corporationID="151840660" startDate="2008-12-13 10:48:00" />
+          <row corporationID="507020344" startDate="2010-07-01 14:01:00" />
+          <row corporationID="680022174" startDate="2009-05-27 14:42:00" />
+          <row corporationID="701140208" startDate="2008-10-05 00:00:00" />
+          <row corporationID="976157507" startDate="2010-07-24 21:12:00" />
+          <row corporationID="1056684971" startDate="2008-10-05 00:00:00" />
+          <row corporationID="1148065744" startDate="2010-03-26 19:44:00" />
+          <row corporationID="1594257695" startDate="2010-07-07 21:19:00" />
+          <row corporationID="1639878825" startDate="2008-10-03 22:56:00" />
+          <row corporationID="1697204959" startDate="2010-02-09 23:51:00" />
+          <row corporationID="1753357224" startDate="2008-10-05 11:00:00" />
+          <row corporationID="1897011848" startDate="2010-06-29 01:24:00" />
+          <row corporationID="1929344914" startDate="2010-03-27 14:53:00" />
+          <row corporationID="1957131260" startDate="2009-05-01 09:09:00" />
+          <row corporationID="1968788375" startDate="2008-12-19 22:58:00" />
+        </rowset>
+      </row>
+  </result>
+  <cachedUntil>2010-08-20 23:31:21</cachedUntil>
+</eveapi>

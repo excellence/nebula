@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<eveapi version="2">
+  <currentTime>2010-08-18 13:59:48</currentTime>
+  <result>
+    <rowset name="characters" key="characterID" columns="name,characterID,corporationName,corporationID">
+      <row name="Makurid" characterID="642510006" corporationName="Stoneage Shipyards" corporationID="1594257695" />
+    </rowset>
+  </result>
+  <cachedUntil>2010-08-18 14:37:29</cachedUntil>
+</eveapi>
