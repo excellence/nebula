@@ -7,30 +7,34 @@
       %title= "#{RAILS_ENV=='production' ? '' : 'DEV | '}Nebula - CSM Proposal Tracker"
     %meta{:content => "Nebula is proposal tracker for EVE Online's Council of Stellar Management, allowing players to voice their opinion, vote on proposals and view feedback", :name => 'description'}
     %meta{:content => 'eve, online, eve online, csm, council, stellar, management, issue, tracker, nebula', :name => 'keywords'}
-    = javascript_include_tag 'jquery-1.4.2.min.js', 'jquery-ui-1.8.custom.min.js'
-    = stylesheet_link_tag 'application', 'jquery-ui-1.8.custom.css'
-    %link{:rel=>"search",:type=>"application/opensearchdescription+xml",:title=>"Nebula Search",:href=>"/search.xml"}/
+    %meta{:name => 'author', :content => 'Team Excellence'}
+    %meta{'http-equiv'=>"X-UA-Compatible", :content=>"IE=edge,chrome=1"}
+    %meta{:name=>'viewport', :content=>'width=device-width; initial-scale=1.0; maximum-scale=1.0;'}
+    = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'jquery-ui-1.8.2.custom.min.js'
+    = stylesheet_link_tag 'fonts', 'application', 'jquery-ui-1.8.2.custom.css'
+    //%link{:rel=>"search",:type=>"application/opensearchdescription+xml",:title=>"Nebula Search",:href=>"/search.xml"}/
   %body
     #container
       #header
-        %a{:href => '/'}
-          = image_tag 'logo.png', :alt => 'Nebula', :style => 'border:0px;'
+        #links
+          .link_item= link_to 'Login', '/login'
+          .link_item= link_to 'Sign up', '/signup'
+        %a{:href => '/', :class=>'header_link'}
+          Nebula
+      #nav
         #search
           - form_tag '/proposals/search', :id=>'search_form' do
             #search_field= text_field_tag :q, (params[:q] or 'Search for a proposal')
-      #nav_outer
-        #nav
-          =link_to 'Top Proposals', {:controller => 'proposals', :action => 'index'}, :class=>'nav_item'
-          =link_to 'New Proposals', {:controller => 'proposals', :action => 'index'}, :class=>'nav_item'
-      #content_outer
+        .nav_item=link_to 'Top Proposals', {:controller => 'proposals', :action => 'index'}, :class=>'nav_item'
+        .nav_item=link_to 'New Proposals', {:controller => 'proposals', :action => 'index'}, :class=>'nav_item'
+      #content
         -if flash[:error]
           #error
             #error_text=flash[:error]
         -if flash[:info]
           #info
             #info_text=flash[:info]
-        #content
-          =@content_for_layout
+        =@content_for_layout
 
     #footer_outer
       #footer

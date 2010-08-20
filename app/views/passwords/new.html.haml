@@ -1,0 +1,9 @@
+%h1=title 'Forgot your password?'
+
+- form_for resource_name, resource, :url => password_path(resource_name) do |f|
+  = f.error_messages 
+  %p
+    = f.label :email
+    = f.text_field :email
+
+  = f.submit "Send me reset password instructions"

@@ -4,14 +4,14 @@
   margin: 0px; }
 
 body {
-  background: url("/images/background.jpg") top center no-repeat #121212;
+  background: #121212 url("/images/background.jpg") top center no-repeat;
   color: white;
   font-family: Arial, Lucida Sans Unicode, Lucida Grande, sans-serif;
   font-size: 11px; }
 
 a {
   font-weight: bold;
-  color: #77ddc9;
+  color: #ffcc00;
   text-decoration: none; }
 
 ul {
@@ -26,9 +26,9 @@ ol {
   margin-left: 25px;
   list-style: decimal-leading-zero; }
 
-h1, h2, h3, h4 {
-  color: #ffe87f;
-  text-transform: uppercase;
+h1, h2, h3, h4, h5, h6 {
+  font-family: "TitilliumRegular", "Arial", "Lucida Sans Unicode", "Lucida Grande", "sans-serif";
+  color: #ff9600;
   margin-left: 5px; }
 
 h1 {
@@ -45,11 +45,11 @@ h4 {
   font-size: 16px; }
 
 h5 {
-  color: #ffe87f;
+  color: #ff9600;
   font-size: 14px; }
 
 h6 {
-  color: #ffe87f;
+  color: #ff9600;
   font-size: 12px; }
 
 p {
@@ -63,11 +63,7 @@ th {
   text-align: left;
   font-size: 12px; }
 
-#content_outer form {
-  padding: 5px;
-  margin: 10px; }
-
-#content_outer label {
+label {
   width: 160px;
   font-weight: bold;
   float: left;
@@ -77,132 +73,75 @@ th {
   margin-top: 7px;
   text-transform: uppercase; }
 
-#content_outer .button {
+.button {
   margin-left: 170px; }
 
-#content_outer input {
+input {
   padding: 4px;
   margin: 3px;
   font-size: 14px; }
 
-#content_outer .checkbox {
+.checkbox {
   margin-top: 9px; }
 
 #container {
   width: 950px;
   margin: auto;
-    margin-top: 30px;
-    margin-bottom: 40px; }
+    margin-top: 10px;
+    margin-bottom: 10px; }
 
 #header {
   padding-top: 5px; }
+  #header .header_link {
+    font-family: "TitilliumBold", "Arial", "Lucida Sans Unicode", "Lucida Grande", "sans-serif";
+    font-size: 48px; }
 
-#nav_outer {
-  margin-top: 10px;
-  background: url("/images/border.png") repeat;
-  width: 100%;
-  padding: 10px; }
-
-#search {
-  text-transform: uppercase;
-  vertical-align: middle;
-  text-align: middle;
+#links {
   float: right;
-  margin: 5px; }
-  #search input {
-    text-transform: uppercase;
-    height: 20px;
-    width: 275px;
-    font-weight: bold;
-    padding: 5px; }
-  #search a {
-    float: left; }
+  clear: both;
+  background: #121212;
+  padding: 4px; }
+  #links .link_item {
+    float: left;
+    padding-left: 5px;
+    padding-right: 5px; }
 
 #nav {
   background: #282828;
   width: 100%;
-  height: 45px; }
+  height: 30px;
+  padding: 0px; }
+  #nav .nav_item {
+    height: 30px;
+    float: left;
+    padding-left: 5px;
+    padding-right: 5px; }
+  #nav a {
+    font-family: "TitilliumMedium", "Arial", "Lucida Sans Unicode", "Lucida Grande", "sans-serif";
+    font-size: 20px; }
 
-.nav_item {
-  border-left: 1px solid #3e3e3e;
-  float: left;
-  height: 32px;
-  padding-top: 13px;
-  padding-left: 29px;
-  padding-right: 30px;
-  display: block;
-  color: white;
-  text-transform: uppercase; }
-
-#content_outer {
-  background: url("/images/border.png") repeat;
-  width: 100%;
-  padding: 10px;
-  margin-top: 25px; }
+#search {
+  float: right;
+  clear: both; }
+  #search input {
+    height: 15px;
+    background: #121212;
+    color: white;
+    border: 0px solid; }
 
 #content {
   background: #131313;
   width: 100%;
   padding-bottom: 7px; }
 
-#content_inner {
-  margin: 7px; }
-
-#footer_outer {
-  color: white;
-  display: visible;
-  width: 100%;
-  background: #3e3e3e;
-  opacity: 0.9;
-  filter: alpha(opacity=90);
+#footer {
+  margin: auto;
+  width: 950px;
   height: 20px;
-  position: fixed;
-  bottom: 0px;
-  left: 0px;
-  z-index: 100; }
-  #footer_outer #footer {
-    margin: auto;
-    width: 950px;
-    height: 20px; }
-  #footer_outer #right-side {
-    float: right; }
-  #footer_outer #left-side {
-    float: left; }
+  font-size: 10px; }
 
-.red {
-  color: red; }
+#right-side {
+  float: right; }
 
-.green {
-  color: lime; }
-
-#error {
-  background: #282828;
-  height: 25px;
-  width: 100%;
-  clear: both;
-  border-bottom: 2px solid red;
-  border-top: 2px solid red;
-  margin-bottom: 10px; }
-
-#error_text {
-  padding: 5px;
-    padding-left: 20px;
-    padding-top: 2px;
-  font-size: 110%;
-  font-weight: bold; }
-
-#info {
-  background: #282828;
-  height: 25px;
-  width: 100%;
-  clear: both;
-  border-bottom: 2px solid lime;
-  border-top: 2px solid lime;
-  margin-bottom: 10px; }
-
-#info_text {
-  padding: 5px;
-    padding-left: 20px;
-    padding-top: 2px;
-  font-size: 110%;
-  font-weight: bold; }
+#left-side {
+  float: left; }

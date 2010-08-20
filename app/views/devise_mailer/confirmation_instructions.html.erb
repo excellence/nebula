@@ -1,5 +1,6 @@
-<p>Welcome <%= @resource.email %>!</p>
+<p>Welcome to Nebula, <%= @resource.email %>!</p>
 
-<p>You can confirm your account through the link below:</p>
+<p>To begin using Nebula you must first confirm that this is a valid email address. To do this, click on the link below:</p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+<p><%= link_to confirmation_url(@resource, :confirmation_token => @resource.confirmation_token), confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+

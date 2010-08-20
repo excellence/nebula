@@ -1,9 +1,9 @@
-!link_col = #77DDC9
+!link_col = #ffcc00
 !reallydark = #131313
 !dark = #282828
 !darkish = #2D2D2D
 !light = #3E3E3E
-!title_col = #FFE87F
+!title_col = #ff9600
 !highlight_bg = #525252
 !font_family = "Arial, Lucida Sans Unicode, Lucida Grande, sans-serif"
 !code_family = "Lucida Console, Monaco, monospace, Courier New, Bitstream Vera Sans Mono"
@@ -14,7 +14,7 @@
   :margin 0px
 
 body
-  :background url("/images/background.jpg") top center no-repeat #121212
+  :background #121212 url("/images/background.jpg") top center no-repeat
   :color #FFF
   :font
     :family = !font_family
@@ -34,9 +34,9 @@ li
 ol
   :margin-left 25px
   :list-style decimal-leading-zero
-h1,h2,h3,h4
+h1,h2,h3,h4,h5,h6
+  :font-family 'TitilliumRegular', "Arial", "Lucida Sans Unicode", "Lucida Grande", "sans-serif"
   :color = !title_col
-  :text-transform uppercase
   :margin-left 5px
 h1
   :margin-left 15px
@@ -65,10 +65,7 @@ th
   :font-size 12px
 
 // Forms
-#content_outer form
-  :padding 5px
-  :margin 10px
-#content_outer label
+label
   :width 160px
   :font-weight bold
   :float left
@@ -77,48 +74,69 @@ th
   :margin-right 10px
   :margin-top 7px
   :text-transform uppercase
-#content_outer .button
+.button
   :margin-left 170px
-#content_outer input
+input
   :padding 4px
   :margin 3px
   :font-size 14px
-#content_outer .checkbox
+.checkbox
   :margin-top 9px
 // Container
 #container
   :width 950px
   :margin auto
-    :top 30px
-    :bottom 40px
+    :top 10px
+    :bottom 10px
 // Header
 #header
   :padding-top 5px
+  .header_link
+    :font-family 'TitilliumBold', "Arial", "Lucida Sans Unicode", "Lucida Grande", "sans-serif"
+    :font-size 48px
+#links
+  :float right
+  :clear both 
+  :background #121212
+  :padding 4px 
+  .link_item
+    :float left
+    :padding
+      :left 5px
+      :right 5px
 // Nav bar and search
-#nav_outer
-  :margin-top 10px
-  :background url("/images/border.png") repeat
-  :width 100%
-  :padding 10px
 #nav
   :background = !dark
   :width 100%
-  :height 45px
+  :height 30px
+  :padding 0px
+  .nav_item
+    :height 30px
+    :float left
+    :padding
+      :left 5px
+      :right 5px
+  a
+    :font-family 'TitilliumMedium', "Arial", "Lucida Sans Unicode", "Lucida Grande", "sans-serif"
+    :font-size 20px
+#search
+  :float right
+  :clear both
+  input
+    :height 15px
+    :background #121212
+    :color #FFFFFF
+    :border 0px solid
 // Contents
-#content_outer
-  :width 100%
-  :padding 10px
-  :margin-top 25px
 #content
   :background = !reallydark
   :width 100%
   :padding-bottom 7px
-#content_inner
-  :margin 7px
 #footer
   :margin auto
   :width 950px
   :height 20px
+  :font-size 10px
 #right-side
   :float right
 #left-side

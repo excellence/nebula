@@ -16,6 +16,8 @@ class Proposal < ActiveRecord::Base
   # This is the main method for doing any voting. All voting should basically use this.
   # Pass in an Account ID, and a value.
   # The value can be either 1, -1 or 0. 1 or -1 will vote positively or negatively as appropriate; 0 will delete an existing vote.
+  # TODO: This method should check if the account is eligible to vote based on API status and raise an exception if it is not
+  # TODO: This method should check if the proposal is open for voting and raise an exception if it is not
   def vote!(account_id, value)
     account = Account.find(account_id, :include=>[:user, :character])
     raise ArgumentError, "No such account" unless account
