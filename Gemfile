@@ -8,7 +8,6 @@ gem 'devise', '1.0.8'
 gem 'attr_encrypted', :git=>'git://github.com/cgod/attr_encrypted.git' # till main branch supports ruby 1.9
 gem 'pg'
 gem 'haml'
-gem 'reve'
 gem 'resque'
 gem 'dsander-reve'
 group :test do
