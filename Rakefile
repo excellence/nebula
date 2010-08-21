@@ -12,3 +12,4 @@ rescue Exception => e
 end
 
 require 'tasks/rails'
+require 'resque/tasks'

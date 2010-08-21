@@ -33,6 +33,12 @@ class Account < ActiveRecord::Base
     end
   end
   
+  # Asynchronously call the Account#update! method using Resque
+  # high_priority is the only option and defaults to false; if true, will enqueue on a high priority queue that may have more workers assigned to it
+  def async_update!(high_priority=false)
+    Resque::Job.create((high_priority ? "critical" : "account_updates"), "UpdateAccountJob", self.id)
+  end
+  
   # Primary method for updating this account against the EVE Online API.
   # Calling this method will poke the API server and update stored details, and mark this account as validated or not as appropriate, updating the timestamp if valid.
   def update!

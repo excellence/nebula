@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :amendments
   has_many :state_changes
   has_many :votes
+  belongs_to :character
   
   # attr_accessible sets attributes that can be accessed outside the model; keep this to the minimum for security.
   attr_accessible :email, :password, :password_confirmation

@@ -1,0 +1,41 @@
+%h1=title 'EVE Account Management'
+%p
+  Your Nebula account is tied to your EVE Online accounts via EVE Online API keys. This section of the website lets you manage those keys, and define which character on each account you want to use as your publicly displayed 'primary' character for that account.
+%h2 Your EVE Accounts
+%p
+  To add a new EVE Online account,
+  = link_to 'click here', new_account_path
+- if current_user.accounts and current_user.accounts.length > 0
+  %table
+    %tr
+      %th Account ID
+      %th Characters
+      %th Account API Key
+      %th Status
+      %th Options
+    - current_user.accounts.each do |account| 
+      %tr
+        %td= account.api_uid
+        %td &nbsp;
+        %td= account.api_key[0..10]+"..."
+        %td= account.validated ? "Validated" : "Requires Attention"
+        %td
+          = link_to 'Details', account_path(account)
+          = link_to 'Update API Key', edit_account_path(account)
+          = link_to 'Remove Account', account_path(account), :method => :delete, :confirm => "Are you really sure? All your votes from this account will be deleted!"
+- else
+  %p
+    You do not have any EVE Online accounts added yet.
+%h2 Primary Character
+%p
+  You have one account-wide primary character. By default, this is the character with the most skill points on any of your EVE accounts, and is usually correct for most people. You are given the option to change this character when you add a new account so that you can change your main character, for example if you buy a new character or get a new EVE account.
+- if current_user.accounts and current_user.accounts.length > 0 and current_user.character
+  %p
+    Your primary character is currently 
+  %p
+    You cannot currently change your primary character.
+- else
+  %p
+    You do not have any EVE Online accounts added and verified.
+  %p
+    When you add your first account, you will be given the option to select your primary character.

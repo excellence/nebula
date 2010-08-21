@@ -1,0 +1,21 @@
+%h1=title 'Add EVE Online Account - Step 1'
+%p
+  To verify you have an eligible EVE Online account, Nebula uses the EVE Online API.
+%p
+  %strong Trial accounts are not eligible to vote in the CSM or post on the assembly hall forum, and as such are not permitted to be registered within Nebula.
+  
+%p
+  You can retrieve your EVE Online API details at the
+  = link_to 'EVE Online API Key Management', 'http://www.eveonline.com/api/Default.asp'
+  page.
+
+- form_for @account do |f| 
+  = f.error_messages
+  %p
+    = f.label :api_uid, "API User ID"
+    = f.text_field :api_uid, :size => 6
+  %p
+    = f.label :api_key, "Limited API Key"
+    = f.text_field :api_key, :size => 85
+  %p
+    = f.submit "Next"
