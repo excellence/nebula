@@ -37,6 +37,24 @@ describe Account do
     end
   end
   
+  describe "changing the account status" do
+    before(:each) do
+      @account = Factory.create(:account)
+    end
+    it "should set the last_state properly" do
+      @account.set_state AccountState.find_by_name('Validation pending due to low SP')
+      @account.state.should == AccountState.find_by_name('Validation pending due to low SP')
+      @account.set_state AccountState.find_by_name('Validated')
+      @account.state.should == AccountState.find_by_name('Validated')
+      @account.account_state_changes.length.should == 2
+    end
+    it "should not create duplicate account status update entries" do
+      @account.set_state AccountState.find_by_name('Validation pending due to low SP')
+      @account.set_state AccountState.find_by_name('Validation pending due to low SP')
+      @account.account_state_changes.length.should == 1
+    end
+  end
+  
   describe "validating account data" do
     before(:each) do
       Reve::API.characters_url = XML_BASE + 'two_characters.xml'
@@ -51,7 +69,9 @@ describe Account do
       @account.update!
       @account.character.should == @account.characters.first
       @account.characters.first.skill_points.should == 9_607_843
+      @account.characters.first.alliance_id.should == 1900696668
       @account.validated.should == true
+      @account.state.should == AccountState.find_by_name('Validated')
     end
 
     it "should auto-select the character if there is only one" do
@@ -66,18 +86,27 @@ describe Account do
         Reve::API.character_sheet_url = 'http://api.eve-online.com/char/CharacterSheet.xml.aspx'
         @account.update!
         @account.validated.should == false
+        @account.state.should == AccountState.find_by_name('Invalid')
+      end
+      it "given inactive account" do
+        Reve::API.characters_url = XML_BASE + 'account_inaktive.xml'
+        @account.update!
+        @account.validated.should == false
+        @account.state.should == AccountState.find_by_name('Inactive')
       end
       it "given a valid api key holding just one character with less then 3m skillpoints" do
         Reve::API.characters_url = XML_BASE + 'one_character.xml'
         Reve::API.character_sheet_url = XML_BASE + 'character_sheet_too_less_sp.xml'
         @account.update!
         @account.validated.should == false
+        @account.state.should == AccountState.find_by_name('Validation pending due to low SP')
       end
       it "given a valid api key and having selected a character with _less_ then 3m skillpoints" do
         Reve::API.character_sheet_url = XML_BASE + 'character_sheet_too_less_sp.xml'
         @account.update!
         @account.select_character! @account.characters.first
         @account.validated.should == false
+        @account.state.should == AccountState.find_by_name('Validation pending due to low SP')
       end
       
       it "given a valid api key as third account" do
@@ -86,12 +115,14 @@ describe Account do
         Reve::API.characters_url = XML_BASE + 'one_character.xml'
         @account.update!
         @account.validated.should == false
+        @account.state.should == AccountState.find_by_name('Validation pending due to account count')
       end
       it "given a valid api key but its user has registered under the same ip as another user" do
         Factory.create(:user, :email => 'userfive@test.evenebula.org')
         Reve::API.characters_url = XML_BASE + 'one_character.xml'
         @account.update!
-        @account.validated == false
+        @account.validated.should == false
+        @account.state.should == AccountState.find_by_name('Validation pending due to IP checks')
       end
     end
     describe "should be valid" do
@@ -102,6 +133,7 @@ describe Account do
         @account.character.should == @account.characters.first
         @account.characters.first.skill_points.should == 9_607_843
         @account.validated.should == true
+        @account.state.should == AccountState.find_by_name('Validated')
       end
       it "given a valid api key and having selected a character with more then 3m skillpoints" do
         @account.update!
@@ -109,7 +141,17 @@ describe Account do
         @account.validated.should == true
       end
       it "given a valid api key and has been validated manually" do
-        pending
+        Factory.create(:user, :email => 'userfive@test.evenebula.org')
+        Reve::API.characters_url = XML_BASE + 'one_character.xml'
+        @account.update!
+        @account.validated.should == false
+        @account.state.should == AccountState.find_by_name('Validation pending due to IP checks')
+        
+        Reve::API.personal_wallet_journal_url = XML_BASE + 'wallet_journal.xml'
+        Account.validate_pending_accounts!
+        @account.reload
+        @account.validated.should == true
+        @account.state.should == AccountState.find_by_name('Manually validated')
       end
     end
   
