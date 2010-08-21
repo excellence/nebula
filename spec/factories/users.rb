@@ -1,7 +1,7 @@
 Factory.define :user do |u|
   u.email 'userfour@test.evenebula.org'
-  u.password 123456
-  u.password_confirmation 123456
+  u.password '123456'
+  u.password_confirmation '123456'
   u.current_sign_in_ip "192.168.0.17"    
   u.last_sign_in_ip "192.168.0.17"
 end
