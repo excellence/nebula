@@ -10,7 +10,9 @@ gem 'pg'
 gem 'haml'
 gem 'reve'
 gem 'resque'
+gem 'dsander-reve'
 group :test do
   gem 'syntax'
   gem 'rspec'
+  gem 'factory_girl'
 end
