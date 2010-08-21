@@ -98,6 +98,7 @@ class Account < ActiveRecord::Base
       if User.count('*', :conditions => ["current_sign_in_ip = ? OR last_sign_in_ip = ?",self.user.current_sign_in_ip,self.user.last_sign_in_ip]) > 1
         self.validated = false
       end
+      self.save!
     # TODO: More debugging output in these blocks
     rescue Reve::Exceptions::AuthenticationFailure => e 
       self.validated = false

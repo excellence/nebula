@@ -9,19 +9,21 @@
   %table
     %tr
       %th Account ID
-      %th Characters
+      %th Primary Character
       %th Account API Key
       %th Status
       %th Options
     - current_user.accounts.each do |account| 
       %tr
         %td= account.api_uid
-        %td &nbsp;
+        %td= account.character ? account.character.name : "Awaiting validation"
         %td= account.api_key[0..10]+"..."
         %td= account.validated ? "Validated" : "Requires Attention"
         %td
           = link_to 'Details', account_path(account)
+          |
           = link_to 'Update API Key', edit_account_path(account)
+          |
           = link_to 'Remove Account', account_path(account), :method => :delete, :confirm => "Are you really sure? All your votes from this account will be deleted!"
 - else
   %p

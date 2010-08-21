@@ -1,2 +1,20 @@
-<h1>Accounts#edit</h1>
-<p>Find me in app/views/accounts/edit.html.erb</p>
+%h1=title 'Update EVE Online Account'
+%p
+  If you have changed your EVE Online API key, you will need to update it in Nebula to keep your account enabled.
+%p
+  Once you've updated your details here, there'll be a short delay while they're checked against the EVE Online servers.
+%p
+  You can retrieve your EVE Online API details at the
+  = link_to 'EVE Online API Key Management', 'http://www.eveonline.com/api/Default.asp'
+  page.
+
+- form_for @account do |f| 
+  = f.error_messages
+  %p
+    = f.label :api_uid, 'API User ID'
+    = f.text_field :api_uid, :disabled => true
+  %p
+    = f.label :api_key, "Limited API Key"
+    = f.text_field :api_key, :size => 85, :value => ''
+  %p
+    = f.submit "Update"

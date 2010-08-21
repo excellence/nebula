@@ -32,6 +32,7 @@ class AccountsController < ApplicationController
   
   def update
     @account = current_user.accounts.find_by_id(params[:id])
+    @account.api_key = params[:account][:api_key]
     if @account.save
       # Queue the update for this key, specifying higher priority queue
       @account.async_update!(true)
@@ -51,10 +52,7 @@ class AccountsController < ApplicationController
       return
     end
   end
-  
-  def wait_for_load
-    
-  end
+
   
   def destroy
     @account = current_user.accounts.find_by_id(params[:id])

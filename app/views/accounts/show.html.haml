@@ -1,2 +1,8 @@
-<h1>Accounts#show</h1>
-<p>Find me in app/views/accounts/show.html.erb</p>
+%h1=title "Account Details for account #{@account.api_uid}"
+%table{:style=>'width:250px;'}
+  %tr
+    %th API User ID
+    %td= @account.api_uid
+  %tr
+    %th API Key
+    %td= @account.api_key[0..10]+"..."

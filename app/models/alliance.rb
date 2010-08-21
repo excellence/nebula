@@ -5,7 +5,8 @@ class Alliance < ActiveRecord::Base
   validates_presence_of :ticker
   validates_length_of :name, :within => 3..100
   validates_length_of :ticker, :within => 1..5
-  
+  # Updates the alliance list with the API. Since this is an expensive operation, we do all alliances at once
+  # and update all known corporations with their alliances.
   def self.do_update
     alliances = self.find(:all)
     alliance_ids = alliances.map{|a|a.id}
