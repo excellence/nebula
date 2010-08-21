@@ -13,6 +13,7 @@ class Proposal < ActiveRecord::Base
   validates_presence_of :character_id
   validates_presence_of :user_id
   attr_protected :score
+  
   # This is the main method for doing any voting. All voting should basically use this.
   # Pass in an Account ID, and a value.
   # The value can be either 1, -1 or 0. 1 or -1 will vote positively or negatively as appropriate; 0 will delete an existing vote.
@@ -56,10 +57,12 @@ class Proposal < ActiveRecord::Base
       end
     end
   end
+  
   # Remove a vote from the score - this is not updating models, just the proposal's score column
   def remove_vote(vote)
     self.score = self.score - vote.value
   end
+  
   # Add a vote to the score - this is not updating models, just the proposal's score column
   def add_vote(vote)
     self.score = self.score + vote.value

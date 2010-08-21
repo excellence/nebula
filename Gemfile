@@ -10,6 +10,7 @@ gem 'pg'
 gem 'haml'
 gem 'resque'
 gem 'dsander-reve'
+gem 'mini_magick'
 group :test do
   gem 'syntax'
   gem 'rspec'

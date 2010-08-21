@@ -89,6 +89,7 @@ class Account < ActiveRecord::Base
       # Account is validated if the selected character has more then 3m skill points
       if self.character && self.character.skill_points > 3_000_000
         self.validated = true
+        self.last_validated_at = Time.now
       end
       # Account is not validated if the user already has two accounts 
       if self.user.accounts.length > 2
