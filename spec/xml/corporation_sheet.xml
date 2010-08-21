@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<eveapi version="2">
+  <currentTime>2010-08-20 22:26:24</currentTime>
+  <result>
+    <corporationID>1594257695</corporationID>
+    <corporationName>Stoneage Shipyards</corporationName>
+    <ticker>-AGE-</ticker>
+    <ceoID>1111</ceoID>
+    <ceoName>Tester</ceoName>
+    <stationID>60014620</stationID>
+    <stationName>Moutid II - Moon 14 - Hedion University School</stationName>
+    <description>soon</description>
+    <url>http://www.stoneage-shipyards.com</url>
+    <allianceID>1900696668</allianceID>
+    <allianceName>The Initiative.</allianceName>
+    <taxRate>100</taxRate>
+    <memberCount>14</memberCount>
+    <memberLimit>40</memberLimit>
+    <shares>1000</shares>
+    <rowset name="divisions" key="accountKey" columns="accountKey,description">
+      <row accountKey="1000" description="test1" />
+      <row accountKey="1001" description="test2" />
+      <row accountKey="1002" description="test3" />
+      <row accountKey="1003" description="test4" />
+      <row accountKey="1004" description="test5" />
+      <row accountKey="1005" description="test6" />
+      <row accountKey="1006" description="test7" />
+    </rowset>
+    <rowset name="walletDivisions" key="accountKey" columns="accountKey,description">
+      <row accountKey="1000" description="test1" />
+      <row accountKey="1001" description="test2" />
+      <row accountKey="1002" description="test3" />
+      <row accountKey="1003" description="test4" />
+      <row accountKey="1004" description="test5" />
+      <row accountKey="1005" description="test6" />
+      <row accountKey="1006" description="test7" />
+    </rowset>
+    <logo>
+      <graphicID>0</graphicID>
+      <shape1>449</shape1>
+      <shape2>0</shape2>
+      <shape3>0</shape3>
+      <color1>0</color1>
+      <color2>0</color2>
+      <color3>0</color3>
+    </logo>
+  </result>
+  <cachedUntil>2010-08-21 04:26:24</cachedUntil>
+</eveapi>

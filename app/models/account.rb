@@ -7,7 +7,10 @@ class Account < ActiveRecord::Base
   attr_encrypted :api_key, :key=>API_KEY_ENCRYPTION_KEY, :encode => true
   
   belongs_to :user
+  # Selected voting character
   belongs_to :character
+  # All character on this account
+  has_many :characters
   has_many :votes
   has_many :characters
   
@@ -33,6 +36,12 @@ class Account < ActiveRecord::Base
     end
   end
   
+  # Asynchronously call the Account#update! method using Resque
+  # high_priority is the only option and defaults to false; if true, will enqueue on a high priority queue that may have more workers assigned to it
+  def async_update!(high_priority=false)
+    Resque::Job.create((high_priority ? "critical" : "account_updates"), "UpdateAccountJob", self.id)
+  end
+  
   # Primary method for updating this account against the EVE Online API.
   # Calling this method will poke the API server and update stored details, and mark this account as validated or not as appropriate, updating the timestamp if valid.
   def update!
@@ -50,6 +59,14 @@ class Account < ActiveRecord::Base
         c.gender = sheet.gender
         c.race = sheet.race
         c.bloodline = sheet.bloodline
+        # Calculate the SP total - we don't store this - and mark this as the highest SP char on this account if appropriate so we can set this as the primary character later.
+        sp_total = sheet.skills.sum(&:skillpoints)
+        if sp_total > highest_sp
+          highest_sp = sp_total
+          highest_sp_character = c
+        end
+        c.skill_points = sp_total
+        c.corporation_id = sheet.corporation_id
         c.save!
         # Now handle corporation loading
         corpsheet = self.reve.corporation_sheet(:characterid=>character.id)
@@ -64,33 +81,46 @@ class Account < ActiveRecord::Base
         end
         corp.member_count = corpsheet.member_count
         corp.save!
-        # Calculate the SP total - we don't store this - and mark this as the highest SP char on this account if appropriate so we can set this as the primary character later.
-        sp_total = 0
-        sheet.skills.each do |skill|
-          sp_total += skill.skillpoints
-        end
-        if sp_total > highest_sp
-          highest_sp = sp_total
-          highest_sp_character = c
-        end
       end
       # Set the account's active character to the char with the most SP if this is not set yet.
       if !self.character
         self.character = highest_sp_character
       end
+      # Account is validated if the selected character has more then 3m skill points
+      if self.character && self.character.skill_points > 3_000_000
+        self.validated = true
+      end
+      # Account is not validated if the user already has two accounts 
+      if self.user.accounts.length > 2
+        self.validated = false
+      end
+      # Account is not validated if the user is using the same ip as another user
+      if User.count('*', :conditions => ["current_sign_in_ip = ? OR last_sign_in_ip = ?",self.user.current_sign_in_ip,self.user.last_sign_in_ip]) > 1
+        self.validated = false
+      end
     # TODO: More debugging output in these blocks
     rescue Reve::Exceptions::AuthenticationFailure => e 
       self.validated = false
-      self.save
+      self.save!
     rescue Reve::Exceptions::LoginDeniedByAccountStatus => e 
       self.validated = false
-      self.save
+      self.save!
     rescue Reve::Exceptions::ReveError => e 
       self.validated = false
-      self.save
+      self.save!
     end
   end
   
+  def select_character!(char)
+    char = Character.find(char) if char.class != Character
+    if char.skill_points > 3_000_000
+      self.character = char
+      self.validated = true
+    else
+      self.validated = false
+    end
+    self.save!
+  end  
   # Helper: Returns a new Reve::API object with API key, API user ID and character ID already initialized
   def reve
     Reve::API.new(self.api_uid, self.api_key, self.character_id)

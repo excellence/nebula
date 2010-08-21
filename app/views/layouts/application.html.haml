@@ -17,8 +17,14 @@
     #container
       #header
         #links
-          .link_item= link_to 'Login', '/login'
-          .link_item= link_to 'Sign up', '/signup'
+          - if user_signed_in?
+            .link_item= "Logged in as #{current_user.name}"
+            .link_item= link_to 'Manage EVE Accounts', '/accounts'
+            .link_item= link_to 'Account Settings', '/users/edit'
+            .link_item= link_to 'Logout', '/users/sign_out'
+          - else
+            .link_item= link_to 'Login', '/users/sign_in'
+            .link_item= link_to 'Sign up', '/users/sign_up'
         %a{:href => '/', :class=>'header_link'}
           Nebula
       #nav
