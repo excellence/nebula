@@ -26,6 +26,11 @@ describe Proposal do
     @proposal.should_not be_valid
   end
   
+  it "should be taggable" do
+    @proposal.tag_list = "pvp, lowsec"
+    @proposal.tag_list.should == ['pvp', 'lowsec']
+  end
+    
   it "should increment the score by one when a positive vote is added" do
     @proposal.attributes = @valid_attributes
     @proposal.save!

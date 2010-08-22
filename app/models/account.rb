@@ -108,23 +108,21 @@ class Account < ActiveRecord::Base
         if !self.character
           self.character = highest_sp_character
         end
+        # Account is not validated if the user already has two accounts 
+        if self.user.accounts.length > 2
+          self.validated = false
+          self.set_state AccountState.find_by_name('Validation pending due to account count')
+        # Account is not validated if the user is using the same ip as another user
+        elsif User.count('*', :conditions => ["current_sign_in_ip = ? OR last_sign_in_ip = ?",self.user.current_sign_in_ip,self.user.last_sign_in_ip]) > 1
+          self.validated = false
+          self.set_state AccountState.find_by_name('Validation pending due to IP checks')
         # Account is validated if the selected character has more then 3m skill points
-        if self.character && self.character.skill_points > 3_000_000
+        elsif self.character && self.character.skill_points > 3_000_000
           self.validated = true
           self.set_state AccountState.find_by_name('Validated')
         elsif self.character && self.character.skill_points < 3_000_000
           self.validated = false
           self.set_state AccountState.find_by_name('Validation pending due to low SP')
-        end
-        # Account is not validated if the user already has two accounts 
-        if self.user.accounts.length > 2
-          self.validated = false
-          self.set_state AccountState.find_by_name('Validation pending due to account count')
-        end
-        # Account is not validated if the user is using the same ip as another user
-        if User.count('*', :conditions => ["current_sign_in_ip = ? OR last_sign_in_ip = ?",self.user.current_sign_in_ip,self.user.last_sign_in_ip]) > 1
-          self.validated = false
-          self.set_state AccountState.find_by_name('Validation pending due to IP checks')
         end
         self.save!
       end
