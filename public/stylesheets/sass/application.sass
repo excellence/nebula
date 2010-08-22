@@ -59,13 +59,28 @@ p
 
 // Table layout stuff
 table
-  :width 100%
+  :width 920px
   :margin 3px
     :left 8px
+  :border-collapse collapse
+td
+  :background = !reallydark
+  :border
+    :style solid
+    :width 0px 1px 1px 0px
+    :color = !light
+  :padding 4px
+    :left 7px
+    :right 6px
 th
-  :text-align left
-  :font-size 12px
-
+  :background = !dark
+  :border-left = 1px solid !reallydark
+  :border-bottom = 1px solid !reallydark
+  :padding 4px
+tr
+  :border-bottom = 1px solid !dark
+.toprow
+  :border-top = 1px solid !dark
 // Forms
 label
   :width 160px
