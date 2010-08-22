@@ -10,6 +10,7 @@ gem 'pg'
 gem 'haml'
 gem 'resque'
 gem 'dsander-reve'
+gem 'acts-as-taggable-on'
 group :test do
   gem 'syntax'
   gem 'rspec'
