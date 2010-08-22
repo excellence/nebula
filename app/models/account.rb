@@ -21,6 +21,7 @@ class Account < ActiveRecord::Base
   validates_length_of :api_key, :is=>64
   validates_presence_of :api_uid
   validates_numericality_of :api_uid
+  validates_uniqueness_of :api_uid
   
   before_save :handle_vote_status
 
@@ -39,7 +40,7 @@ class Account < ActiveRecord::Base
   end
   
   # Creates a new AccountStateChange and updates account_state_id
-  def set_state new_state
+  def set_state(new_state)
     raise ArgumentError.new("Can not set the account state to #{new_state.to_s}") unless new_state
     return if (state && state.id == new_state.id)
     AccountStateChange.create!(:account_id => self.id, :account_state_id => new_state.id)

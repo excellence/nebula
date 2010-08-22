@@ -27,6 +27,20 @@
       You can manually verify this account by making an ISK transfer in-game from the wallet of a character on this account to the ingame character Nebula Agent. The amount should be 0.01 ISK. This transaction allows us to check that you are the account holder, and that you hold a full EVE Online account (as opposed to a trial account).
     %p
       Once you have made the ISK transaction, your account may take up to an hour to be validated.
+%table
+  %tr
+    %th Status
+    %th Validity
+    %th Changed At
+    %th Details
+  - @account.account_state_changes.each do |asc| 
+    %tr
+      %td=asc.account_state.name
+      %td=asc.account_state.validated ? 'Validated' : 'Invalidated'
+      %td=asc.created_at.to_s
+      %td=asc.account_state.description
+      
+  
 %h2 Characters and Affiliations
 %table{:style=>'width:650px;'}
   %tr

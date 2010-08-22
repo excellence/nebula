@@ -29,10 +29,10 @@ State.create({ :name => 'Implemented', :description => 'Proposal has been implem
 
 AccountState.delete_all
 ActiveRecord::Base.connection.execute("SELECT SETVAL('account_states_id_seq', 1, false);")
-AccountState.create( {:name => 'Validated', :description => 'Your account has been validated', :validated => true } )
+AccountState.create( {:name => 'Validated', :description => 'Your account has been automatically validated', :validated => true } )
 AccountState.create( {:name => 'Manually validated', :description => 'Your account has been manually validated', :validated => true } )
 AccountState.create( {:name => 'Inactive', :description => 'Your EVE Online account is inactive, reactivate your EVE account to validate this account', :validated => false } )
 AccountState.create( {:name => 'Invalid', :description => 'The API Key you entered is invalid', :validated => false } )
 AccountState.create( {:name => 'Validation pending due to low SP', :description => 'Your account is pending manual validation, because no character has more then 3 million skill points', :validated => false  } )
 AccountState.create( {:name => 'Validation pending due to account count', :description => 'Your account is pending manual validation, because you already have at least two accounts registered', :validated => false  } )
-AccountState.create( {:name => 'Validation pending due to IP checks', :description => 'Your account is pending manual validation, another user is using the same ip adress as you are', :validated => false  } )
+AccountState.create( {:name => 'Validation pending due to IP checks', :description => 'Your account is pending manual validation, another user is using the same IP address as you are', :validated => false  } )

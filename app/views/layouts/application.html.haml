@@ -33,6 +33,8 @@
             #search_field= text_field_tag :q, (params[:q] or 'Search for a proposal')
         .nav_item=link_to 'Top Proposals', {:controller => 'proposals', :action => 'index'}, :class=>'nav_item'
         .nav_item=link_to 'New Proposals', {:controller => 'proposals', :action => 'index'}, :class=>'nav_item'
+        .nav_item=link_to 'Tags', {:controller => 'proposals', :action => 'tags'}, :class=>'nav_item'
+        .nav_item=link_to 'Submit Proposal', {:controller => 'proposals', :action => 'tags'}, :class=>'nav_item'
       #content
         -if flash[:error]
           #error
