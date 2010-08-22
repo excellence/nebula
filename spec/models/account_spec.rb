@@ -107,6 +107,7 @@ describe Account do
         @account.select_character! @account.characters.first
         @account.validated.should == false
         @account.state.should == AccountState.find_by_name('Validation pending due to low SP')
+        @account.account_state_changes.length.should == 1
       end
       
       it "given a valid api key as third account" do
@@ -116,6 +117,7 @@ describe Account do
         @account.update!
         @account.validated.should == false
         @account.state.should == AccountState.find_by_name('Validation pending due to account count')
+        @account.account_state_changes.length.should == 1
       end
       it "given a valid api key but its user has registered under the same ip as another user" do
         Factory.create(:user, :email => 'userfive@test.evenebula.org')
@@ -123,6 +125,7 @@ describe Account do
         @account.update!
         @account.validated.should == false
         @account.state.should == AccountState.find_by_name('Validation pending due to IP checks')
+        @account.account_state_changes.length.should == 1
       end
     end
     describe "should be valid" do
