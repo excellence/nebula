@@ -1,0 +1,11 @@
+%h1=title "Submit Proposal"
+- form_for @proposal do |f| 
+  = f.error_messages
+  %p
+    = f.label :title
+    = f.text_field :title
+  %p
+    = f.label :body
+    = f.text_area :body
+  %p
+    = f.submit 'Submit'

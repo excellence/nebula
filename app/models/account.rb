@@ -24,8 +24,8 @@ class Account < ActiveRecord::Base
   validates_uniqueness_of :api_uid
   
   before_save :handle_vote_status
-  after_destroy :reassign_primary_on_account
-  after_save :reassign_primary_on_account
+  before_destroy :reassign_primary_on_account
+  before_save :reassign_primary_on_account
   
   # This method handles marking votes this account owns as enabled or disabled when the state of the account changes based on API validation failing or not.
   # FIXME: Currently touches all votes even if there's nothing to do, ie updating API key will force refresh and enable all votes when validated.
@@ -44,7 +44,7 @@ class Account < ActiveRecord::Base
   # Scans the account to make sure that the owning User does not have a character on this Account set as their primary; if they do, trigger autoselection.
   def reassign_primary_on_account
     if self.validated = false and self.characters.include?(self.user.character)
-      self.user.autoselect_primary_character!
+      self.user.autoselect_primary_character!(self.characters)
     end
   end
   
@@ -117,10 +117,6 @@ class Account < ActiveRecord::Base
         if !self.character
           self.character = highest_sp_character
         end
-        if !self.user.character
-          self.user.character = highest_sp_character
-          self.user.save!
-        end
         # Account is not validated if the user already has two accounts 
         if self.user.accounts.length > 2
           self.validated = false
@@ -133,6 +129,11 @@ class Account < ActiveRecord::Base
         elsif self.character && self.character.skill_points > 3_000_000
           self.validated = true
           self.set_state AccountState.find_by_name('Validated')
+          # Set the user's character to the highest SP char on this account if we're a valid account
+          if !self.user.character
+            self.user.character = highest_sp_character
+            self.user.save!
+          end
         elsif self.character && self.character.skill_points < 3_000_000
           self.validated = false
           self.set_state AccountState.find_by_name('Validation pending due to low SP')

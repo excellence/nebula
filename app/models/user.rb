@@ -41,8 +41,9 @@ class User < ActiveRecord::Base
   
   # Automatically selects the primary character for this User as the highest skill point validated character on the User's validated Accounts, or sets
   # the character_id column to null if the User has no validated Accounts.
-  def autoselect_primary_character!
-    c = self.validated_characters
+  # Accepts a blacklisted character array.
+  def autoselect_primary_character!(blacklist=[])
+    c = self.validated_characters - blacklist
     if !c or c.length == 0
       self.character = nil
       self.save!

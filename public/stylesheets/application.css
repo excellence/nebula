@@ -156,7 +156,9 @@ input {
 #content {
   background: #131313;
   width: 100%;
-  padding-bottom: 7px; }
+  padding-bottom: 7px;
+  padding-left: 2px;
+  padding-right: 2px; }
 
 #footer {
   margin: auto;
@@ -169,3 +171,33 @@ input {
 
 #left-side {
   float: left; }
+
+#error {
+  background: #6c2828;
+  margin: 10px;
+    margin-top: 0px;
+  padding: 5px;
+  border: 1px solid #3e3e3e;
+    border-top: 0px;
+  font-weight: bold;
+  font-family: "TitilliumMedium", "Arial", "Lucida Sans Unicode", "Lucida Grande", "sans-serif"; }
+
+#info {
+  background: #286c28;
+  margin: 10px;
+    margin-top: 0px;
+  padding: 5px;
+  border: 1px solid #3e3e3e;
+    border-top: 0px;
+  font-weight: bold;
+  font-family: "TitilliumMedium", "Arial", "Lucida Sans Unicode", "Lucida Grande", "sans-serif"; }
+
+.account_needs_validation {
+  background: #4a2828;
+  margin: 10px;
+  border: 1px solid #3e3e3e; }
+
+.account_validated {
+  background: #282828;
+  margin: 10px;
+  border: 1px solid #3e3e3e; }

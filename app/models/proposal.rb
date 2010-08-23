@@ -16,6 +16,22 @@ class Proposal < ActiveRecord::Base
   validates_presence_of :user_id
   attr_protected :score
   
+  # TODO: Implement me
+  def can_edit?(user)
+  end
+  # TODO: Implement me
+  def can_delete?(user)
+  end
+  # TODO: Implement me
+  def can_vote?
+  end
+  # TODO: Implement me
+  def can_propose_amendments?(user)
+  end
+  # TODO: Implement me
+  def can_approve_amendments?(user)
+  end
+  
   # This is the main method for doing any voting. All voting should basically use this.
   # Pass in an Account ID, and a value.
   # The value can be either 1, -1 or 0. 1 or -1 will vote positively or negatively as appropriate; 0 will delete an existing vote.
@@ -76,6 +92,11 @@ class Proposal < ActiveRecord::Base
   def recalculate_score!
     self.score = Vote.find(:all, :conditions => ['proposal_id = ? AND value IN (-1, 1) AND enabled',self.id], :select => 'value').map{|v|v.value}.sum
     self.save!
+  end
+  
+  # Overriding for pretty URLs. Because we're pretty. Too darn pretty. That, and we love SEO! Rails does to_i on this before using it as a parameter, so keep $ID-whateverelse and it works.
+  def to_param
+    "#{self.id}-#{self.title.gsub(/[^a-z0-9]+/i, '-')}"
   end
   
 end

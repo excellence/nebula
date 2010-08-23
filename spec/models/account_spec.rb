@@ -157,6 +157,8 @@ describe Account do
         @account.state.should == AccountState.find_by_name('Manually validated')
       end
     end
+    
+    
   
   end
   
