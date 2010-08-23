@@ -1,11 +1,11 @@
 %h1=title 'EVE Account Management'
 %p
-  Your Nebula account is tied to your EVE Online accounts via EVE Online API keys. This section of the website lets you manage those keys, and define which character on each account you want to use as your publicly displayed 'primary' character for that account.
+  Your Nebula account is tied to your EVE Online accounts via EVE Online API keys. This section of the website lets you manage those keys, and define which character on each account you want to use as your publicly displayed 'primary' character for that account. You can add as many EVE Online accounts as you own; you are given multiple votes if you have multiple accounts.
 %h2 Your EVE Accounts
-%p
-  To add a new EVE Online account,
-  = link_to 'click here', new_account_path
 - if current_user.accounts and current_user.accounts.length > 0
+  %p
+    To add an additional EVE Online account,
+    = link_to 'click here', new_account_path
   %table
     %tr
       %th Account ID
@@ -28,16 +28,10 @@
 - else
   %p
     You do not have any EVE Online accounts added yet.
+  %p
+    To add a new EVE Online account,
+    = link_to 'click here', new_account_path
 %h2 Primary Character
 %p
-  You have one account-wide primary character. By default, this is the character with the most skill points on any of your EVE accounts, and is usually correct for most people. You are given the option to change this character when you add a new account so that you can change your main character, for example if you buy a new character or get a new EVE account.
-- if current_user.accounts and current_user.accounts.length > 0 and current_user.character
-  %p
-    Your primary character is currently 
-  %p
-    You cannot currently change your primary character.
-- else
-  %p
-    You do not have any EVE Online accounts added and verified.
-  %p
-    When you add your first account, you will be given the option to select your primary character.
+  You can select your primary character from your list of validated characters in your
+  = link_to 'account settings', '/users/edit'

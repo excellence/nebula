@@ -24,7 +24,9 @@ class Account < ActiveRecord::Base
   validates_uniqueness_of :api_uid
   
   before_save :handle_vote_status
-
+  after_destroy :reassign_primary_on_account
+  after_save :reassign_primary_on_account
+  
   # This method handles marking votes this account owns as enabled or disabled when the state of the account changes based on API validation failing or not.
   # FIXME: Currently touches all votes even if there's nothing to do, ie updating API key will force refresh and enable all votes when validated.
   def handle_vote_status
@@ -36,6 +38,13 @@ class Account < ActiveRecord::Base
       self.votes.each do |vote|
         vote.disable!
       end
+    end
+  end
+  
+  # Scans the account to make sure that the owning User does not have a character on this Account set as their primary; if they do, trigger autoselection.
+  def reassign_primary_on_account
+    if self.validated = false and self.characters.include?(self.user.character)
+      self.user.autoselect_primary_character!
     end
   end
   
@@ -107,6 +116,10 @@ class Account < ActiveRecord::Base
         # Set the account's active character to the char with the most SP if this is not set yet.
         if !self.character
           self.character = highest_sp_character
+        end
+        if !self.user.character
+          self.user.character = highest_sp_character
+          self.user.save!
         end
         # Account is not validated if the user already has two accounts 
         if self.user.accounts.length > 2
