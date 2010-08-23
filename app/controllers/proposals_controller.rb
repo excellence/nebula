@@ -1,6 +1,6 @@
 class ProposalsController < ApplicationController
   
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :only => [:new, :edit]
   before_filter :require_primary_character!, :only => [:new, :edit]
   
   def index

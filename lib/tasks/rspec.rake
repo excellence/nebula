@@ -140,5 +140,5 @@ namespace :spec do
     end
   end
 end
-
+task :spec => ["db:schema:load", "db:seed"]
 end

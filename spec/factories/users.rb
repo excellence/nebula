@@ -8,7 +8,7 @@ end
 
 Factory.define :account do |a|
   a.user { |u| u.association(:user) }
-  a.api_uid 1
+  a.api_uid rand(100000)
   a.api_key 'xxxxLYFftalJIvmR05ipFgKag0mOb220lfuyVk4HheCq7ZV4Nu8M4zqnTnhbEUxx'
   a.validated false
 end
