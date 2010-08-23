@@ -20,6 +20,21 @@ Nebula is openly developed and planned. The requirements for developing Nebula a
 * Redis server (will run on anything POSIX compliant, used by Resque job queue)
 * PostgreSQL or MySQL database server
 
+### Git branches and flow
+
+We make use of the git flow workflow. An explanation can be found [here](http://nvie.com/git-model), or for a simpler explanation go [here](http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/).
+
+Either way, you probably want the git-flow extension to git which makes this model very easy to work with. You can get it [here](http://github.com/nvie/gitflow).
+
+The quick summary:
+
+* Most development work is in the 'develop' branch, which is the default branch on github.
+* Major features are developed in feature/feature-name branches.
+* Releases are staged on release branches, and then tagged across to master as releases.
+* Hotfixes are staged on their own branches, then merged into a new tag on master and the current develop HEAD.
+
+Most of the time you just want to work in develop, unless you're doing a major feature, in which case shift to a feature branch.
+
 ### Getting Started with Nebula
 
 You need Ruby. This is most easily installed from source on Linux, or using a package manager if you so choose.
