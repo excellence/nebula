@@ -3,6 +3,7 @@ class Proposal < ActiveRecord::Base
   
   has_many :votes
   has_many :amendments
+  has_many :state_changes
   belongs_to :state
   belongs_to :state_change
   belongs_to :character
@@ -15,6 +16,16 @@ class Proposal < ActiveRecord::Base
   validates_presence_of :character_id
   validates_presence_of :user_id
   attr_protected :score
+  
+  before_validation_on_create :initiate_state
+  
+  def initiate_state
+    puts "heeee"
+    logger.debug "hello"
+    self.state = State.find_by_name('New')
+    self.state_changes << StateChange.create!(:user_id => self.user_id, :character_id => self.character_id, :to_state_id => self.state_id, :reason => 'Proposal created.')
+    self.state_change = self.state_changes.first
+  end  
   
   # TODO: Implement me
   def can_edit?(user)
