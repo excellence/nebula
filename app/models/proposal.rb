@@ -41,6 +41,7 @@ class Proposal < ActiveRecord::Base
     account = Account.find(account_id, :include=>[:user, :character])
     raise ArgumentError, "No such account" unless account
     raise ArgumentError, "Invalid value for vote passed" unless [-1, 0, 1].include?(value) # Stops errant votes with wrong values
+    raise SecurityError, "Proposal is in a state where voting is not allowed" if self.state && !self.state.can_vote?
     Proposal.transaction do
       Vote.transaction do
         # Find any existing vote for this proposal/account

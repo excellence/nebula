@@ -16,4 +16,5 @@ group :test do
   gem 'syntax'
   gem 'rspec'
   gem 'factory_girl'
+  gem 'ZenTest'
 end
