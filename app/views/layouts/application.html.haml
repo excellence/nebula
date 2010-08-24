@@ -31,9 +31,9 @@
         #search
           - form_tag '/proposals/search', :id=>'search_form' do
             #search_field= text_field_tag :q, (params[:q] or 'Search for a proposal')
-        .nav_item=link_to 'Top Proposals', {:controller => 'proposals', :action => 'index'}, :class=>'nav_item'
-        .nav_item=link_to 'New Proposals', {:controller => 'proposals', :action => 'index'}, :class=>'nav_item'
-        .nav_item=link_to 'Tags', {:controller => 'proposals', :action => 'tags'}, :class=>'nav_item'
+        .nav_item=link_to 'Proposals', {:controller => 'proposals', :action => 'index'}, :class=>'nav_item'
+        .nav_item=link_to 'New Proposals', {:controller => 'proposals', :action => 'recent'}, :class=>'nav_item'
+        .nav_item=link_to 'Tags', {:controller => 'tags', :action => 'index'}, :class=>'nav_item'
         .nav_item=link_to 'Submit Proposal', {:controller => 'proposals', :action => 'new'}, :class=>'nav_item'
       #content
         -if flash[:error]

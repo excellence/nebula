@@ -1,14 +1,21 @@
 class ProposalsController < ApplicationController
   
-  before_filter :authenticate_user!, :only => [:new, :edit]
-  before_filter :require_primary_character!, :only => [:new, :edit]
+  before_filter :authenticate_user!, :only => [:new, :edit, :update, :create, :vote]
+  before_filter :require_primary_character!, :only => [:new, :edit, :update, :create, :vote]
   
   def index
-    @proposals = Proposal.find(:all, :limit => 10, :order => 'score DESC')
+    @popular_proposals = Proposal.find(:all, :limit => 10, :order => 'score DESC')
+    @recent_proposals = Proposal.find(:all, :limit => 5, :order => 'created_at DESC')
     respond_to do |format|
       format.html
       # TODO: Add JSON, XML formats
     end
+  end
+  def recent
+    @proposals = Proposal.find(:all, :limit => 25, :order => 'created_at DESC')
+  end
+  def my
+    @proposals = Proposal.find(:all, :conditions => {:user_id => current_user.id}, :order => 'score DESC')
   end
 
   def show
@@ -59,7 +66,9 @@ class ProposalsController < ApplicationController
   end
   
   def vote
-    
+    proposal_exists?
+    @proposal = Proposal.find(params[:id])
+
   end
   
   private

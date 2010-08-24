@@ -154,7 +154,7 @@ input {
     border: 0px solid; }
 
 #content {
-  background: #131313;
+  background: url("/images/translucent_bg.png") repeat;
   width: 100%;
   padding-bottom: 7px;
   padding-left: 2px;
@@ -204,15 +204,19 @@ input {
 
 .proposal {
   float: left;
-  border-bottom: 1px dotted #999999;
+  border-bottom: 1px solid #3e3e3e;
   overflow: hidden;
-  width: 100%; }
+  width: 98%;
+  padding-left: 10px;
+  padding-right: 10px; }
 
 .votes {
   float: left;
-  height: 38px;
+  height: 44px;
   width: 38px;
   padding: 4px;
+  margin-top: 10px;
+  margin-left: 4px;
   background: #131313;
   border: 1px solid #3e3e3e;
   text-align: center; }
@@ -225,8 +229,21 @@ input {
 
 .proposal_summary {
   float: left;
+  width: 800px;
   padding: 10px;
-  font-size: 16px; }
+    padding-top: 0px;
+  font-size: 24px; }
 
 .proposal_author {
-  font-size: 11px; }
+  float: right;
+  font-size: 14px; }
+
+.tag {
+  font-size: 14px;
+  float: left;
+  margin: 2px;
+  padding: 2px;
+  background: #131313;
+  border: 1px solid #3e3e3e; }
+  .tag a {
+    color: #999999; }

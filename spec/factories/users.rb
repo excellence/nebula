@@ -1,5 +1,5 @@
 Factory.define :user do |u|
-  u.email 'userfour@test.evenebula.org'
+  u.email "user#{rand(10000)}@test.evenebula.org"
   u.password '123456'
   u.password_confirmation '123456'
   u.current_sign_in_ip "192.168.0.17"    
@@ -7,6 +7,7 @@ Factory.define :user do |u|
 end
 
 Factory.define :character do |c|
+  c.account { |a| a.association(:account) }
   c.id 642510006
   c.name 'Makurid'
   c.gender 'Male'
@@ -14,7 +15,6 @@ Factory.define :character do |c|
   c.bloodline 'Deteis'
   c.skill_points 3_000_001
   c.user_id { User.find_by_email('userfour@test.evenebula.org').id }
-  c.account_id { Account.find_by_api_uid(1).id }
   c.corporation_id 1594257695
   c.alliance_id 1900696668
 end

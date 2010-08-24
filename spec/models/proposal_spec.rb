@@ -2,8 +2,6 @@ require 'spec_helper'
 
 describe Proposal do
   
-  fixtures :proposals, :state_changes
-  
   before(:each) do
     @valid_attributes = {
       :state_id => 1,
@@ -137,6 +135,16 @@ describe Proposal do
     @proposal.vote!(a.id, 0)
     @proposal.score.should == 0
     @proposal.votes.length.should == 0
+  end
+  
+  it "should add a disabled vote when passed an invalidated account" do
+    @account = Factory.create(:account)
+    @proposal = Factory.create(:proposal)
+    @proposal.vote!(@account.id,1)
+    @proposal.votes.first.enabled.should == false
+    @proposal.votes.first.value.should == 1
+    @proposal.score.should == 0
+    @proposal.votes.length.should == 1
   end
   
 end

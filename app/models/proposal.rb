@@ -21,8 +21,6 @@ class Proposal < ActiveRecord::Base
   before_save :initiate_state
   
   def initiate_state
-    puts "heeee"
-    logger.debug "hello"
     self.state = State.find_by_name('New')
     self.state_changes << StateChange.create!(:user_id => self.user_id, :character_id => self.character_id, :to_state_id => self.state_id, :reason => 'Proposal created.')
     self.state_change = self.state_changes.first
@@ -65,6 +63,7 @@ class Proposal < ActiveRecord::Base
           v.user = account.user
           v.character = account.character
           v.proposal = self
+          v.enabled = account.validated?
           v.value = value
           v.save!
           self.add_vote(v)
@@ -80,6 +79,7 @@ class Proposal < ActiveRecord::Base
             # Otherwise, we want to update the vote with the new value.
             self.remove_vote(v)
             v.value = value
+            v.enabled = account.validated?
             v.save!
             self.add_vote(v)
             self.save!
@@ -94,8 +94,9 @@ class Proposal < ActiveRecord::Base
     self.score = self.score - vote.value
   end
   
-  # Add a vote to the score - this is not updating models, just the proposal's score column
+  # Add a vote to the score - this is not updating models, just the proposal's score column. Will only add a vote if the vote is enabled.
   def add_vote(vote)
+    return false unless vote.enabled?
     self.score = self.score + vote.value
   end
   

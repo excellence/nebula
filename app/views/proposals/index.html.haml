@@ -1,13 +1,4 @@
 %h1=title 'Proposals'
-.proposals_list
-  - @proposals.each do |proposal| 
-    .proposal
-      .votes
-        .votes_text=proposal.score
-        votes
-      .proposal_summary
-        =link_to h(proposal.title), proposal_path(proposal)
-        .proposal_author
-          = image_tag proposal.character.portrait(16)
-          = proposal.character.name
-.footer{:style=>'clear:both;'}
+= render :partial => 'list', :locals => {:proposals=>@popular_proposals}
+%h2 Recent Proposals
+= render :partial => 'list', :locals => {:proposals=>@recent_proposals}
