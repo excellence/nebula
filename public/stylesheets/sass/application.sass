@@ -93,13 +93,17 @@ label
   :text-transform uppercase
 input[type="submit"]
   :margin-left 170px
-input
+input,textarea,.tagHandlerContainer
   :padding 4px
   :margin 3px
   :font-size 14px
   :background #121212 !important
   :color #FFFFFF
   :border 1px #333333 solid
+  :-webkit-box-shadow = 0 0 10px !dark
+  :-moz-box-shadow = 0 0 10px !dark
+  :box-shadow = 0 0 10px !dark
+
 .checkbox
   :margin-top 9px
 // Container
@@ -127,10 +131,10 @@ input
       :right 5px
 // Nav bar and search
 #nav
-  :background = !dark
   :width 100%
   :height 30px
   :padding 0px
+  :margin-bottom 10px
   .nav_item
     :height 30px
     :float left
@@ -147,7 +151,10 @@ input
     :height 15px
     :background #121212
     :color #FFFFFF
-    :border 0px solid
+    :border = 1px solid !light
+    :-webkit-box-shadow = 0 0 10px !light
+    :-moz-box-shadow = 0 0 10px !light
+    :box-shadow = 0 0 10px !light
 // Contents
 #content
   :background = url("/images/translucent_bg.png") repeat
