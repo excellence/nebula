@@ -18,7 +18,7 @@ class Proposal < ActiveRecord::Base
   validates_presence_of :user_id
   attr_protected :score
   
-  before_save :initiate_state
+  before_create :initiate_state
   
   def initiate_state
     self.state = State.find_by_name('New')

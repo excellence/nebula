@@ -1,3 +1,18 @@
 -title @proposal.title
 = render :partial => 'proposal_large', :locals => {:proposal => @proposal}
 .proposal_body= RedCloth.new(@proposal.body).to_html
+%h2 Proposal Progress
+%table
+  %tr
+    %th{:style=>'width:130px'} Changed At
+    %th Change Owner
+    %th Old State
+    %th New State
+    %th Description
+  - @proposal.state_changes.each do |sc| 
+    %tr
+      %td=sc.created_at
+      %td=character(sc.character)       
+      %td= sc.from_state ? h(sc.from_state.name) : 'N/A'
+      %td=h sc.to_state.name
+      %td=h sc.to_state.description

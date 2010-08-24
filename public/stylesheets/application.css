@@ -212,7 +212,7 @@ input, textarea, .tagHandlerContainer {
   float: left;
   border-bottom: 1px solid #3e3e3e;
   overflow: hidden;
-  width: 98%;
+  width: 930px;
   padding-left: 10px;
   padding-right: 10px; }
 
@@ -243,14 +243,37 @@ input, textarea, .tagHandlerContainer {
 
 .proposal_summary {
   float: left;
-  width: 800px;
+  width: 805px;
   padding: 10px;
     padding-top: 0px;
   font-size: 24px; }
 
 .proposal_author {
   float: right;
-  font-size: 14px; }
+  font-size: 12px;
+  margin: 2px;
+  padding: 2px;
+  background: #131313;
+  border: 1px solid #3e3e3e;
+  text-transform: lowercase; }
+  .proposal_author img {
+    vertical-align: top; }
+
+.logo {
+  vertical-align: top; }
+
+.status_tag {
+  font-size: 14px;
+  float: left;
+  margin: 2px;
+  padding: 2px;
+  background: #351313;
+  border: 1px solid #3e3e3e;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #ff9000; }
+  .status_tag a {
+    color: #ff9000; }
 
 .tag {
   font-size: 14px;
@@ -265,7 +288,7 @@ input, textarea, .tagHandlerContainer {
 .small_proposal {
   float: left;
   overflow: hidden;
-  width: 98%;
+  width: 930px;
   padding-left: 10px;
   padding-right: 10px; }
 
@@ -278,6 +301,7 @@ input, textarea, .tagHandlerContainer {
 
 .small_proposal_author {
   float: right;
+  text-transform: lowercase;
   font-size: 10px; }
   .small_proposal_author img {
     vertical-align: top; }
