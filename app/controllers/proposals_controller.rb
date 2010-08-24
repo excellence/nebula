@@ -32,6 +32,10 @@ class ProposalsController < ApplicationController
     @proposal.character_id = current_user.character_id
   end
   
+  def preview
+    render :text => ::RedCloth.new(params['data']).to_html
+  end
+  
   def create
     @proposal = Proposal.new(params[:proposal])
     @proposal.user_id = current_user.id
