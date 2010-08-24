@@ -11,13 +11,14 @@ class Proposal < ActiveRecord::Base
   validates_presence_of :title
   validates_presence_of :body
   validates_length_of :title, :within => 10..255
-  validates_presence_of :state_id
-  validates_presence_of :state_change_id
+  # The initiate_state callback will take care about state_id and state_change_id
+  #validates_presence_of :state_id
+  #validates_presence_of :state_change_id
   validates_presence_of :character_id
   validates_presence_of :user_id
   attr_protected :score
   
-  before_validation_on_create :initiate_state
+  before_save :initiate_state
   
   def initiate_state
     puts "heeee"
