@@ -1,5 +1,13 @@
 %h1=title 'Proposals'
-- @proposals.each do |proposal| 
-  %h2=link_to h(proposal.title), proposal_path(proposal)
-  %p=truncate(h(proposal.body),:length=>150)
-  %br/
+.proposals_list
+  - @proposals.each do |proposal| 
+    .proposal
+      .votes
+        .votes_text=proposal.score
+        votes
+      .proposal_summary
+        =link_to h(proposal.title), proposal_path(proposal)
+        .proposal_author
+          = image_tag proposal.character.portrait(16)
+          = proposal.character.name
+.footer{:style=>'clear:both;'}

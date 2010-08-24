@@ -201,3 +201,32 @@ input {
   background: #282828;
   margin: 10px;
   border: 1px solid #3e3e3e; }
+
+.proposal {
+  float: left;
+  border-bottom: 1px dotted #999999;
+  overflow: hidden;
+  width: 100%; }
+
+.votes {
+  float: left;
+  height: 38px;
+  width: 38px;
+  padding: 4px;
+  background: #131313;
+  border: 1px solid #3e3e3e;
+  text-align: center; }
+
+.votes_text {
+  font-weight: bold;
+  font-size: 24px;
+  height: 22px;
+  margin-bottom: 4px; }
+
+.proposal_summary {
+  float: left;
+  padding: 10px;
+  font-size: 16px; }
+
+.proposal_author {
+  font-size: 11px; }
