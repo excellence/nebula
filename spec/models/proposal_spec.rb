@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Proposal do
   
-  fixtures :proposals, :states, :state_changes
+  fixtures :proposals, :state_changes
   
   before(:each) do
     @valid_attributes = {
@@ -30,7 +30,15 @@ describe Proposal do
     @proposal.tag_list = "pvp, lowsec"
     @proposal.tag_list.should == ['pvp', 'lowsec']
   end
-    
+  
+  it "should not allow votes if in a state where voting is not allowed" do
+    #require File.join(RAILS_ROOT, 'db/seeds.rb')
+    @proposal = Factory.create(:proposal)
+    State.find(:all, :conditions => {:can_vote => false}).each do |state|
+      @proposal.state = state
+      lambda { @proposal.vote!(Account.find(:first), 1)}.should raise_error(SecurityError)
+    end
+  end
   it "should increment the score by one when a positive vote is added" do
     @proposal.attributes = @valid_attributes
     @proposal.save!

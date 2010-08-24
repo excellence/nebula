@@ -25,7 +25,7 @@ class Account < ActiveRecord::Base
   
   before_save :handle_vote_status
   before_destroy :reassign_primary_on_account
-  before_save :reassign_primary_on_account
+  after_save :reassign_primary_on_account
   
   # This method handles marking votes this account owns as enabled or disabled when the state of the account changes based on API validation failing or not.
   # FIXME: Currently touches all votes even if there's nothing to do, ie updating API key will force refresh and enable all votes when validated.
@@ -39,13 +39,15 @@ class Account < ActiveRecord::Base
         vote.disable!
       end
     end
+    return true
   end
   
   # Scans the account to make sure that the owning User does not have a character on this Account set as their primary; if they do, trigger autoselection.
   def reassign_primary_on_account
-    if self.validated = false and self.characters.include?(self.user.character)
+    if self.validated == false and self.characters.include?(self.user.character)
       self.user.autoselect_primary_character!(self.characters)
     end
+    return true
   end
   
   # Creates a new AccountStateChange and updates account_state_id
@@ -54,7 +56,7 @@ class Account < ActiveRecord::Base
     return if (state && state.id == new_state.id)
     AccountStateChange.create!(:account_id => self.id, :account_state_id => new_state.id)
     self.account_state_id = new_state.id
-    self.save!  
+    self.save!
   end
   
   # Finds the last account state change
@@ -113,20 +115,21 @@ class Account < ActiveRecord::Base
         end
       end
       Account.transaction do
+        self.last_validated_at = Time.now
         # Set the account's active character to the char with the most SP if this is not set yet.
         if !self.character
           self.character = highest_sp_character
         end
         # Account is not validated if the user already has two accounts 
-        if self.user.accounts.length > 2
+        if !validated && self.user.accounts.length > 2
           self.validated = false
           self.set_state AccountState.find_by_name('Validation pending due to account count')
         # Account is not validated if the user is using the same ip as another user
-        elsif User.count('*', :conditions => ["current_sign_in_ip = ? OR last_sign_in_ip = ?",self.user.current_sign_in_ip,self.user.last_sign_in_ip]) > 1
+        elsif !validated && User.count('*', :conditions => ["current_sign_in_ip = ? OR last_sign_in_ip = ?",self.user.current_sign_in_ip,self.user.last_sign_in_ip]) > 1
           self.validated = false
           self.set_state AccountState.find_by_name('Validation pending due to IP checks')
         # Account is validated if the selected character has more then 3m skill points
-        elsif self.character && self.character.skill_points > 3_000_000
+        elsif !validated && self.character && self.character.skill_points > 3_000_000
           self.validated = true
           self.set_state AccountState.find_by_name('Validated')
           # Set the user's character to the highest SP char on this account if we're a valid account
@@ -134,7 +137,7 @@ class Account < ActiveRecord::Base
             self.user.character = highest_sp_character
             self.user.save!
           end
-        elsif self.character && self.character.skill_points < 3_000_000
+        elsif !validated && self.character && self.character.skill_points < 3_000_000
           self.validated = false
           self.set_state AccountState.find_by_name('Validation pending due to low SP')
         end

@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   
   # Helper method, requires that the user have a primary character set up, redirects them to their EVE account management page if they don't.
   def require_primary_character!
-    if authenticate_user!
+    if !authenticate_user! || !current_user.character
       flash[:error] = "You must have a validated EVE Online account to perform this action."
       redirect_to '/accounts/'
       return false

@@ -3,6 +3,7 @@ class Proposal < ActiveRecord::Base
   
   has_many :votes
   has_many :amendments
+  has_many :state_changes
   belongs_to :state
   belongs_to :state_change
   belongs_to :character
@@ -15,6 +16,16 @@ class Proposal < ActiveRecord::Base
   validates_presence_of :character_id
   validates_presence_of :user_id
   attr_protected :score
+  
+  before_validation_on_create :initiate_state
+  
+  def initiate_state
+    puts "heeee"
+    logger.debug "hello"
+    self.state = State.find_by_name('New')
+    self.state_changes << StateChange.create!(:user_id => self.user_id, :character_id => self.character_id, :to_state_id => self.state_id, :reason => 'Proposal created.')
+    self.state_change = self.state_changes.first
+  end  
   
   # TODO: Implement me
   def can_edit?(user)
@@ -41,6 +52,7 @@ class Proposal < ActiveRecord::Base
     account = Account.find(account_id, :include=>[:user, :character])
     raise ArgumentError, "No such account" unless account
     raise ArgumentError, "Invalid value for vote passed" unless [-1, 0, 1].include?(value) # Stops errant votes with wrong values
+    raise SecurityError, "Proposal is in a state where voting is not allowed" if self.state && !self.state.can_vote?
     Proposal.transaction do
       Vote.transaction do
         # Find any existing vote for this proposal/account

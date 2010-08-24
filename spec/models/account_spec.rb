@@ -79,7 +79,24 @@ describe Account do
       @account.update!
       @account.character.should == @account.characters.first
     end
-
+    
+    it "should not invalidate accounts which are valid" do
+      @account.update!
+      @acc2 = Account.new(:user_id => @account.user_id, :api_uid => 10, :api_key => 'xxxxLYFftalJIvmR05ipFgKag0mOb220lfuyVk4HheCq7ZV4Nu8M4zqnTnhbEUxx')
+      @acc2.user = @account.user
+      @acc2.save!
+      @acc2.update!
+      @acc3 = Account.new(:user_id => @account.user_id, :api_uid => 11, :api_key => 'xxxxLYFftalJIvmR05ipFgKag0mOb220lfuyVk4HheCq7ZV4Nu8M4zqnTnhbEUxx')
+      @acc3.user = @account.user
+      @acc3.save!
+      @acc3.update!
+      
+      @acc3.validated.should == true
+      @acc2.validated.should == true
+      @account.validated.should == true
+      User.find(@account.user_id).accounts.length.should == 3
+    end
+    
     describe "should be invalid" do
       it "given an invalid api key" do
         Reve::API.characters_url = 'http://api.eve-online.com/account/Characters.xml.aspx'
@@ -111,8 +128,8 @@ describe Account do
       end
       
       it "given a valid api key as third account" do
-        Factory.create(:account, :api_uid => 2, :user_id => @account.user_id)
         Factory.create(:account, :api_uid => 3, :user_id => @account.user_id)
+        Factory.create(:account, :api_uid => 4, :user_id => @account.user_id)
         Reve::API.characters_url = XML_BASE + 'one_character.xml'
         @account.update!
         @account.validated.should == false
