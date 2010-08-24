@@ -1,5 +1,5 @@
 Factory.define :user do |u|
-  u.email "user#{rand(10000)}@test.evenebula.org"
+  u.email "userfour@test.evenebula.org"
   u.password '123456'
   u.password_confirmation '123456'
   u.current_sign_in_ip "192.168.0.17"    
@@ -20,7 +20,8 @@ Factory.define :character do |c|
 end
 
 Factory.define :account do |a|
-  a.user { |u| u.association(:user) }
+  a.user { |u| User.find_by_email('userfour@test.evenebula.org') ? User.find_by_email('userfour@test.evenebula.org') : u.association(:user) }
+  #a.character { |c| Character.find(642510006) ? Character.find(642510006) : c.association(:chracter) }
   a.api_uid 2 #rand(100000)
   a.api_key 'xxxxLYFftalJIvmR05ipFgKag0mOb220lfuyVk4HheCq7ZV4Nu8M4zqnTnhbEUxx'
   a.validated false
@@ -31,8 +32,7 @@ end
 Factory.define :proposal do |p|
   p.association :user
   p.association :character
-  p.state_id 1
-  p.state_change_id 1
   p.title "Test Proposal"
-  p.body "Test test test test"
+  p.body "This is the test content of the test proposal 1"
+  p.score 0
 end
