@@ -3,7 +3,7 @@
     =proposal.score
     score
   .small_votes
-    =proposal.votes.length
+    =proposal.enabled_votes
     votes
   .small_proposal_summary
     .small_proposal_text=link_to h(proposal.title), proposal_path(proposal)

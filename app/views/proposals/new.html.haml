@@ -1,13 +1,30 @@
 %h1=title "Submit Proposal"
-#review{:style => 'padding-left: 20px;'}
 - form_for @proposal do |f| 
   = f.error_messages
+  %h2 Title and Description
   %p
     = f.label :title
     = f.text_field :title
+  %p{:style=>'margin-left:185px;'}
+    You can format your proposal using Textile. For example:
+  %ul{:style=>'margin-left:215px;'}
+    %li
+      %em _italic_
+    %li
+      %strong *bold*
+    %li * Lists
+    %li # Numeric Lists
+    %li bq. Quotation
+    %li "Link":http://some-link.com
+  %p{:style=>'margin-left:185px;'}
+    More information on how to use Textile can be found
+    =link_to 'here', 'http://www.textism.com/tools/textile/index.php'
   %p
     = f.label :body
-    = f.text_area :body
+    = f.text_area :body, :style=>'height:500px;width:680px;'
+  %h2 Preview
+  #review{:class=>'proposal_body'}
+  %h2 Category and Tags
   %p
     = f.label :tag_list, 'Tags'
     = f.hidden_field :tag_list

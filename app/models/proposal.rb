@@ -92,12 +92,14 @@ class Proposal < ActiveRecord::Base
   # Remove a vote from the score - this is not updating models, just the proposal's score column
   def remove_vote(vote)
     self.score = self.score - vote.value
+    self.enabled_votes = self.enabled_votes - 1
   end
   
   # Add a vote to the score - this is not updating models, just the proposal's score column. Will only add a vote if the vote is enabled.
   def add_vote(vote)
     return false unless vote.enabled?
     self.score = self.score + vote.value
+    self.enabled_votes = self.enabled_votes + 1
   end
   
   # This sets the score stored in the Proposal's score column to be the total score of all votes enabled on this proposal
@@ -105,6 +107,11 @@ class Proposal < ActiveRecord::Base
   # Messy and hits everything. Don't do it unless you have to.
   def recalculate_score!
     self.score = Vote.find(:all, :conditions => ['proposal_id = ? AND value IN (-1, 1) AND enabled',self.id], :select => 'value').map{|v|v.value}.sum
+    self.save!
+  end
+  
+  def recalculate_enabled_votes!
+    self.enabled_votes = self.votes.find(:all, :conditions => {:enabled=>true}).length
     self.save!
   end
   

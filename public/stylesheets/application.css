@@ -300,3 +300,12 @@ input, textarea, .tagHandlerContainer {
 
 .small_proposal_tags {
   float: left; }
+
+.proposal_body {
+  padding: 5px;
+  line-height: 120%;
+  background: #131313;
+  width: 920px;
+  font-size: 12px;
+  margin: 10px;
+  clear: both; }
