@@ -8,4 +8,19 @@
     = f.label :body
     = f.text_area :body
   %p
+    = f.label :tag_list, 'Tags'
+    = f.hidden_field :tag_list
+    %ul{:id => 'tag_list'}
+  %p
     = f.submit 'Submit'
+:javascript
+  $(document).ready(function () {
+    $("#tag_list").tagHandler();
+    $("#new_proposal").submit(function () {
+      var tagNames = new Array();
+      $("#tag_list li.tagItem").each(function () {
+        tagNames.push($(this).html());
+      });
+      $("#proposal_tag_list").val(tagNames);
+    });
+  });
