@@ -21,8 +21,6 @@ class Proposal < ActiveRecord::Base
   before_save :initiate_state
   
   def initiate_state
-    puts "heeee"
-    logger.debug "hello"
     self.state = State.find_by_name('New')
     self.state_changes << StateChange.create!(:user_id => self.user_id, :character_id => self.character_id, :to_state_id => self.state_id, :reason => 'Proposal created.')
     self.state_change = self.state_changes.first

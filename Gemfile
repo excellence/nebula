@@ -12,6 +12,7 @@ gem 'resque'
 gem 'dsander-reve'
 gem 'acts-as-taggable-on'
 gem 'mini_magick'
+gem 'RedCloth'
 group :test do
   gem 'syntax'
   gem 'rspec'
