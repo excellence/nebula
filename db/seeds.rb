@@ -36,3 +36,11 @@ AccountState.create( {:name => 'Invalid', :description => 'The API Key you enter
 AccountState.create( {:name => 'Validation pending due to low SP', :description => 'Your account is pending manual validation because no character has more then 3 million skill points', :validated => false  } )
 AccountState.create( {:name => 'Validation pending due to account count', :description => 'Your account is pending manual validation because you already have at least two accounts registered', :validated => false  } )
 AccountState.create( {:name => 'Validation pending due to IP checks', :description => 'Your account is pending manual validation because this IP address has registered another account', :validated => false  } )
+
+Category.delete_all
+ActiveRecord::Base.connection.execute("SELECT SETVAL('categories_id_seq', 1, false);")
+Category.create({ :name => 'Feature Request', :description => 'Proposals requesting that a new feature be added to EVE Online' })
+Category.create({ :name => 'Design Change Request', :description => 'Proposals requesting that an existing feature be changed and reimplemented' })
+Category.create({ :name => 'Balancing', :description => 'Proposals requesting that a balance issue be addressed' })
+# FIXME: Placeholders are crap, needs better categories and needs more of them.
+#Category.create({ :name => '', :description => '' })

@@ -63,6 +63,7 @@ class Proposal < ActiveRecord::Base
           v.user = account.user
           v.character = account.character
           v.proposal = self
+          v.enabled = account.validated?
           v.value = value
           v.save!
           self.add_vote(v)
@@ -78,6 +79,7 @@ class Proposal < ActiveRecord::Base
             # Otherwise, we want to update the vote with the new value.
             self.remove_vote(v)
             v.value = value
+            v.enabled = account.validated?
             v.save!
             self.add_vote(v)
             self.save!
@@ -92,8 +94,9 @@ class Proposal < ActiveRecord::Base
     self.score = self.score - vote.value
   end
   
-  # Add a vote to the score - this is not updating models, just the proposal's score column
+  # Add a vote to the score - this is not updating models, just the proposal's score column. Will only add a vote if the vote is enabled.
   def add_vote(vote)
+    return false unless vote.enabled?
     self.score = self.score + vote.value
   end
   
