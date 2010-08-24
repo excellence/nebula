@@ -4,8 +4,8 @@ class ProposalsController < ApplicationController
   before_filter :require_primary_character!, :only => [:new, :edit, :update, :create, :vote]
   
   def index
-    @popular_proposals = Proposal.find(:all, :limit => 10, :order => 'score DESC')
-    @recent_proposals = Proposal.find(:all, :limit => 5, :order => 'created_at DESC')
+    @popular_proposals = Proposal.find(:all, :limit => 10, :order => 'score DESC', :include => [:character, :tags])
+    @recent_proposals = Proposal.find(:all, :limit => 5, :order => 'created_at DESC', :include => [:character, :tags])
     respond_to do |format|
       format.html
       # TODO: Add JSON, XML formats

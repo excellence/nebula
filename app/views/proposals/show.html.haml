@@ -1,6 +1,3 @@
-%h1=title "#{h(@proposal.title)}"
-%p
-  This proposal was submitted by
-  =h @proposal.character.name
-%p
-  = h(@proposal.body)
+-title @proposal.title
+= render :partial => 'proposal_large', :locals => {:proposal => @proposal}
+= RedCloth.new(@proposal.body).to_html

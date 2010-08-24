@@ -1,0 +1,16 @@
+.proposal
+  .votes
+    .votes_text=proposal.score
+    score
+  .votes
+    .votes_text=proposal.votes.length
+    votes
+  .proposal_summary
+    =link_to h(proposal.title), proposal_path(proposal)
+    .proposal_tags
+      - proposal.tags.map{|t|t.name}.each do |tag| 
+        .tag=link_to tag, "/tags/#{tag}"
+    .proposal_author
+      submitted by 
+      = proposal.character.name
+      = image_tag proposal.character.portrait(16)
