@@ -114,4 +114,13 @@ describe Proposal do
     @proposal.votes.length.should == 1
   end
   
+  it "should do nothing when passed a value of 0" do
+    a = Account.find(:first)
+    a.validated = true
+    a.save!
+    @proposal.vote!(a.id, 0)
+    @proposal.score.should == 0
+    @proposal.votes.length.should == 0
+  end
+  
 end

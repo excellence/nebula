@@ -18,7 +18,7 @@ class Proposal < ActiveRecord::Base
   validates_presence_of :user_id
   attr_protected :score
   
-  before_save :initiate_state
+  before_create :initiate_state
   
   def initiate_state
     self.state = State.find_by_name('New')
@@ -68,7 +68,7 @@ class Proposal < ActiveRecord::Base
           v.save!
           self.add_vote(v)
           self.save!
-        else
+        elsif v
           # We've got a vote already, so we want to update/delete that existing vote.
           # Setting to zero means destroy the vote
           if value == 0
@@ -118,6 +118,21 @@ class Proposal < ActiveRecord::Base
   # Overriding for pretty URLs. Because we're pretty. Too darn pretty. That, and we love SEO! Rails does to_i on this before using it as a parameter, so keep $ID-whateverelse and it works.
   def to_param
     "#{self.id}-#{self.title.gsub(/[^a-z0-9]+/i, '-')}"
+  end
+  
+  # Returns (in hopefully a DB/RAM-friendly manner) an array of [[User, count], ...] where count is the number of enabled Votes this User has on the Proposal.
+  def voters
+    # Get an array of User IDs, with duplicate user IDs for multiple votes.
+    user_ids = self.votes.find(:all, :select=>'user_id', :conditions=>{:enabled=>true}).map{|v|v.user_id}
+    # Turn this into an array of [id, count]
+    uc = user_ids.inject(Hash.new(0)){|h,x| h[x]+=1;h}.sort
+    # Now load users - note we get all users in one query here, plus characters since we'll want them.
+    users = User.find(:all, :select => 'id,character_id', :conditions => {:id => user_ids.uniq}, :include => :character)
+    # FIXME: Make this prettier. And possibly faster. Either 
+    uc.each do |elem|
+      elem[0] = users.select{|u|u.id == elem[0]}[0]
+    end
+    return uc
   end
   
 end

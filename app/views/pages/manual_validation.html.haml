@@ -1,0 +1,28 @@
+%h1=title 'Manually Validating your EVE Account'
+%p
+  Nebula attempts to manually validate that an account is eligible to vote. For most people, this automatic validation passes and no manual validation is required.
+  
+%p
+  In some cases, however, manual validation is required to ensure the integrity of the system. Manual validation can be triggered by a number of things: adding more than 2 EVE Online accounts, for users who have signed up from the same IP address as another Nebula account, and for accounts with no character with more than 3 million skill points. These help block people attempting to spam the system with harvested API keys and trial accounts.
+
+%h2 How to Validate
+%p
+  If you need to manually validate, you will have to log into the account you are attempting to validate, and find the
+  %strong Nebula Agent
+  character in-game.
+%p
+  The character is a member of the Nebula Corporation [EXCLE]. If you've found the right character you'll see this:
+%p= image_tag 'nebula_character.png'
+%br/
+%p
+  To validate, you need to transfer 0.1 ISK from your account to Nebula Agent's account. Trial accounts cannot transfer money, and if you wish to vote in Nebula but only have a trial account you will need to activate it before you can vote.
+%p
+  To transfer the ISK, click the small arrow at the top of the Show Info window, and select Give Money:
+%p= image_tag 'nebula_givemoney.png'
+%br/
+%p
+  Once you have the transfer window open, press OK - you do not need to change anything from the defaults.
+%p= image_tag 'nebula_payment.png'
+%br/
+%p
+  Validation may take up to an hour depending on how recently Nebula has performed a wallet update. You will be able to see your account as Validated in your Account Management screen after validation has occurred.

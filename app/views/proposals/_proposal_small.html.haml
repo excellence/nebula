@@ -1,16 +1,16 @@
 .small_proposal
   .small_votes
-    =proposal.score
     score
+    =proposal.score
   .small_votes
     =proposal.enabled_votes
     votes
   .small_proposal_summary
     .small_proposal_text=link_to h(proposal.title), proposal_path(proposal)
     .small_proposal_tags
+      .small_status_tag= link_to h(proposal.state.name), '#'
       - proposal.tags.map{|t|t.name}.each do |tag| 
         .small_tag=link_to tag, "/tags/#{tag}"
     .small_proposal_author
       submitted by 
-      = proposal.character.name
-      = image_tag proposal.character.portrait(16)
+      =character(proposal.character)

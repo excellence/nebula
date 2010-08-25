@@ -212,9 +212,10 @@ input, textarea, .tagHandlerContainer {
   float: left;
   border-bottom: 1px solid #3e3e3e;
   overflow: hidden;
-  width: 98%;
+  width: 930px;
   padding-left: 10px;
-  padding-right: 10px; }
+  padding-right: 10px;
+  margin-bottom: 2px; }
 
 .votes {
   float: left;
@@ -233,14 +234,6 @@ input, textarea, .tagHandlerContainer {
   height: 22px;
   margin-bottom: 4px; }
 
-.small_votes {
-  float: left;
-  padding: 4px;
-  margin-left: 4px;
-  background: #131313;
-  border: 1px solid #3e3e3e;
-  text-align: center; }
-
 .proposal_summary {
   float: left;
   width: 800px;
@@ -250,22 +243,54 @@ input, textarea, .tagHandlerContainer {
 
 .proposal_author {
   float: right;
-  font-size: 14px; }
+  font-size: 10px;
+  margin: 2px;
+  padding: 2px;
+  text-transform: lowercase; }
+  .proposal_author img {
+    vertical-align: top; }
 
-.tag {
+.logo {
+  vertical-align: top; }
+
+.status_tag a {
+  font-size: 14px;
+  float: left;
+  margin: 2px;
+  padding: 2px;
+  background: #351313;
+  border: 1px solid #3e3e3e;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #ff9000; }
+
+.tag a {
   font-size: 14px;
   float: left;
   margin: 2px;
   padding: 2px;
   background: #131313;
-  border: 1px solid #3e3e3e; }
-  .tag a {
-    color: #999999; }
+  border: 1px solid #3e3e3e;
+  color: #999999; }
+
+.small_votes {
+  float: left;
+  padding: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+  margin-left: 4px;
+  background: #131313;
+  border: 1px solid #3e3e3e;
+  text-align: center;
+  font-weight: bold;
+  overflow: hidden; }
 
 .small_proposal {
   float: left;
   overflow: hidden;
-  width: 98%;
+  width: 930px;
+  height: 27px;
+  border-bottom: 1px solid #222222;
   padding-left: 10px;
   padding-right: 10px; }
 
@@ -274,23 +299,36 @@ input, textarea, .tagHandlerContainer {
   width: 800px;
   padding: 2px;
     padding-top: 0px;
+    padding-left: 10px;
   font-size: 11px; }
 
 .small_proposal_author {
   float: right;
-  font-size: 10px; }
+  text-transform: lowercase;
+  font-size: 10px;
+  margin-top: 5px; }
   .small_proposal_author img {
     vertical-align: top; }
 
-.small_tag {
+.small_tag a {
   font-size: 10px;
   float: left;
   margin: 2px;
   padding: 2px;
   background: #131313;
-  border: 1px solid #3e3e3e; }
-  .small_tag a {
-    color: #999999; }
+  border: 1px solid #3e3e3e;
+  color: #999999; }
+
+.small_status_tag a {
+  font-size: 10px;
+  float: left;
+  margin: 2px;
+  padding: 2px;
+  background: #351313;
+  border: 1px solid #3e3e3e;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #ff9000; }
 
 .small_proposal_text {
   float: left;
@@ -304,8 +342,49 @@ input, textarea, .tagHandlerContainer {
 .proposal_body {
   padding: 5px;
   line-height: 120%;
-  background: #131313;
+  border: 1px solid #3e3e3e;
+    border-top: 0px;
   width: 920px;
   font-size: 12px;
   margin: 10px;
   clear: both; }
+
+.voters {
+  list-style: none; }
+  .voters li {
+    display: inline;
+    padding: 4px;
+    background: #131313;
+    border: 1px solid #3e3e3e;
+    float: left;
+    margin: 2px; }
+
+.vote_button a {
+  font-size: 16px;
+  float: left;
+  margin: 5px;
+  padding: 5px;
+  background: #461313;
+  border: 1px solid #3e3e3e;
+  color: #cccccc; }
+
+.vote_button_for a {
+  font-size: 16px;
+  float: left;
+  margin: 5px;
+  padding: 5px;
+  background: #134613;
+  border: 1px solid #3e3e3e;
+  color: #cccccc; }
+
+.vote_button_remove a {
+  font-size: 16px;
+  float: left;
+  margin: 5px;
+  padding: 5px;
+  background: #464613;
+  border: 1px solid #3e3e3e;
+  color: #cccccc; }
+
+.vote_buttons {
+  margin: 10px; }

@@ -39,6 +39,10 @@ class User < ActiveRecord::Base
     self.accounts.find(:all, :conditions => ['validated = false'])
   end
   
+  def votes_on_proposal(proposal_id)
+    votes = Vote.find(:all, :conditions => {:proposal_id=>proposal_id, :account_id => self.accounts.map{|a|a.id}})
+  end
+  
   # Automatically selects the primary character for this User as the highest skill point validated character on the User's validated Accounts, or sets
   # the character_id column to null if the User has no validated Accounts.
   # Accepts a blacklisted character array.
