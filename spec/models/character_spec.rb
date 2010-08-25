@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 describe Character do
-  
-  fixtures :accounts
-  
   before(:each) do
     @valid_attributes = {
       :user_id => 1,

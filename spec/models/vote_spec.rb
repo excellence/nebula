@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 describe Vote do
-  
-  fixtures :proposals, :votes
-  
   before(:each) do
     @valid_attributes = {
       :proposal_id => 1,
@@ -46,7 +43,7 @@ describe Vote do
   
   it "should update a proposal's vote count when being disabled and enabled" do
     @vote.attributes = @valid_attributes
-    @vote.proposal = Proposal.find(:first)
+    @vote.proposal = Factory.build(:proposal)
     @vote.value = 1
     @vote.save!
 

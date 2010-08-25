@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe State do
-  fixtures :state_changes
   before(:each) do
     @valid_attributes = {
       :name => "value for name",

@@ -15,7 +15,7 @@ describe Account do
   describe "validating attributes" do
     it "should be valid given valid attributes" do
       @account.attributes = @valid_attributes
-      @account.user = User.find_by_id(1)
+      @account.user = Factory(:user)
       @account.should be_valid
     end
     it "should not be valid without a user ID" do

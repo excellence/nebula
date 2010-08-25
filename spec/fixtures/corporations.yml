@@ -1,7 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  name: Test Corporation
-  ticker: TCORP
-  alliance_id: 1
-  member_count: 1

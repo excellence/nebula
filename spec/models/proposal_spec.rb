@@ -4,15 +4,9 @@ describe Proposal do
   
   before(:each) do
     @proposal = Factory.create(:proposal)
-    @valid_attributes = {
-      :state_id => 1,
-      :state_change_id => 1,
-      :character_id => 1,
-      :user_id => 1,
-      :title => "Test proposal",
-      :body => "This is the test content of the test proposal 1",
-      :score => 0
-    }
+    @account = @proposal.character.account
+    @validated_account = Factory(:validated_account)
+    #@account = Factory.create(:account)
   end
 
   it "should be valid given valid attributes" do
@@ -72,64 +66,47 @@ describe Proposal do
   end
   
   it "should correctly register a new positive vote when no other votes exist" do
-    a = Account.find(:last)
-    a.validated = true
-    a.character = Character.find(642510006)
-    a.save!
-    @proposal.vote!(a.id, 1)
+    @proposal.vote!(@validated_account.id, 1)
     @proposal.score.should == 1
     @proposal.votes.length.should == 1
-    @proposal.votes.first.account_id.should == a.id
+    @proposal.votes.first.account_id.should == @validated_account.id
     @proposal.votes.first.value.should == 1
   end
   
   it "should correctly register a new negative vote when no other votes exist" do
-    a = Account.find(:first)
-    a.validated = true
-    a.character = Character.find(642510006)
-    a.save!
-    @proposal.vote!(a.id, -1)
+    @proposal.vote!(@validated_account.id, -1)
     @proposal.score.should == -1
     @proposal.votes.length.should == 1
-    @proposal.votes.first.account_id.should == a.id
+    @proposal.votes.first.account_id.should == @validated_account.id
     @proposal.votes.first.value.should == -1
   end
   
   it "should correctly update an existing positive vote to a negative vote" do
-    a = Account.find(:first)
-    a.validated = true
-    a.character = Character.find(642510006)
-    a.save!
-    @proposal.vote!(a.id, 1)
-    @proposal.vote!(a.id, -1)
+    @proposal.vote!(@validated_account.id, 1)
+    @proposal.vote!(@validated_account.id, -1)
     @proposal.score.should == -1
     @proposal.votes.length.should == 1
-    @proposal.votes.first.account_id.should == a.id
+    @proposal.votes.first.account_id.should == @validated_account.id
     @proposal.votes.first.value.should == -1
   end
   
   it "should correctly update an existing negative vote to a positive vote" do
-    a = Account.find(:first)
-    @proposal.vote!(a.id, -1)
-    @proposal.vote!(a.id, 1)
+    @proposal.vote!(@validated_account.id, -1)
+    @proposal.vote!(@validated_account.id, 1)
     @proposal.score.should == 1
     @proposal.votes.length.should == 1
-    @proposal.votes.first.account_id.should == a.id
+    @proposal.votes.first.account_id.should == @validated_account.id
     @proposal.votes.first.value.should == 1
   end
   
   it "should correctly remove an existing vote when passed a value of 0" do
-    a = Account.find(:first)
-    a.validated = true
-    a.save!
-    @proposal.vote!(a.id, 1)
-    @proposal.vote!(a.id, 0)
+    @proposal.vote!(@validated_account.id, 1)
+    @proposal.vote!(@validated_account.id, 0)
     @proposal.score.should == 0
     @proposal.votes.length.should == 0
   end
   
   it "should add a disabled vote when passed an invalidated account" do
-    @account = Account.find_by_api_uid(1)
     @proposal.vote!(@account.id,1)
     @proposal.votes.first.enabled.should == false
     @proposal.votes.first.value.should == 1

@@ -18,4 +18,5 @@ group :test do
   gem 'rspec'
   gem 'factory_girl'
   gem 'ZenTest'
+  gem 'simplecov', '>= 0.3.2'
 end

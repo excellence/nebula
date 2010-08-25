@@ -1,8 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  name: Nebula Test Alliance
-  ticker: NEBUL
-  corporation_count: 1
-  member_count: 1
-
