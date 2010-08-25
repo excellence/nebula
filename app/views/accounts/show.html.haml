@@ -18,15 +18,23 @@
       Your account will be re-checked regularly to ensure that you remain eligible to vote and that your account is still active.
       It was last checked for validity on
       = @account.last_validated_at
-- else
+- elsif @account.characters.length > 0
   .account_needs_validation
     %h3 This account has not been validated
     %p
       This account has not been automatically validated, and must be manually validated to gain eligibility to vote on issues or permit you access to raise proposals, propose amendments to existing proposals, and so on.
     %p
-      You can manually verify this account by making an ISK transfer in-game from the wallet of a character on this account to the ingame character Nebula Agent. The amount should be 0.01 ISK. This transaction allows us to check that you are the account holder, and that you hold a full EVE Online account (as opposed to a trial account).
+      You can manually validate this account by making an ISK transfer in-game from the wallet of a character on this account to the ingame character Nebula Agent. The amount should be 0.01 ISK. This transaction allows us to check that you are the account holder, and that you hold a full EVE Online account (as opposed to a trial account).
+    %p
+      More information, including a complete guide to manual validation with pictures, can be found
+      = link_to 'here', '/pages/manual_validation'
     %p
       Once you have made the ISK transaction, your account may take up to an hour to be validated.
+- else
+  .account_needs_validation
+    %h3 This account is awaiting an automatic validation attempt
+    %p
+      Nebula has not yet attempted to validate this account automatically.
 %table
   %tr
     %th Status

@@ -20,6 +20,7 @@ class ProposalsController < ApplicationController
 
   def show
     @proposal = Proposal.find(params[:id], :include=>[:tags, :state, :state_changes, :character])
+    @user_votes = current_user.votes_on_proposal(@proposal.id)
     respond_to do |format|
       format.html
       # TODO: Add JSON, XML formats
@@ -56,9 +57,9 @@ class ProposalsController < ApplicationController
   end
   
   def update
+    @proposal = Proposal.find(params[:id])
     proposal_exists?
     can_edit?
-    @proposal = Proposal.find(params[:id])
     @proposal.update_attributes(params[:proposal])
     if @proposal.save
       flash[:info] = "Your proposal has been updated"
@@ -70,11 +71,24 @@ class ProposalsController < ApplicationController
   end
   
   def vote
-    proposal_exists?
     @proposal = Proposal.find(params[:id])
+    proposal_exists?
+    v = true
     current_user.accounts.each do |a|
-      @proposal.vote!(a.id, params[:score].to_i)
+      if !@proposal.vote!(a.id, params[:score].to_i)
+        v = false
+      end
     end
+    if v
+      if params[:score].to_i == 0
+        flash[:info] = "Your #{current_user.accounts.length > 1 ? 'votes have' : 'vote has'} been removed from this proposal successfully"
+      else
+        flash[:info] = "Your #{current_user.accounts.length > 1 ? 'votes have' : 'vote has'} been cast on this proposal successfully"
+      end
+    else
+      flash[:error] = "One or more of your votes could not be registered. This may be due to an account that needs validation."
+    end
+    redirect_to proposal_path(@proposal)
   end
   
   private

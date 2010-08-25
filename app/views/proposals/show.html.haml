@@ -1,7 +1,26 @@
 -title @proposal.title
 = render :partial => 'proposal_large', :locals => {:proposal => @proposal}
 .proposal_body= RedCloth.new(@proposal.body).to_html
-%h2 Proposal Progress
+.vote_buttons
+  - if @user_votes and @user_votes.length > 0
+    - if @user_votes.first.value == 1
+      .vote_button_remove
+        = link_to 'Remove your vote FOR this proposal', vote_proposal_path(@proposal, :score=>0)
+    - else
+      .vote_button_for
+        = link_to 'Vote FOR this proposal', vote_proposal_path(@proposal, :score=>1)
+    - if @user_votes.first.value == -1
+      .vote_button_remove
+        = link_to 'Remove your vote AGAINST this proposal', vote_proposal_path(@proposal, :score=>0)
+    - else
+      .vote_button
+        = link_to 'Vote AGAINST this proposal', vote_proposal_path(@proposal, :score=>-1)
+  - else
+    .vote_button_for
+      = link_to 'Vote FOR this proposal', vote_proposal_path(@proposal, :score=>1)
+    .vote_button
+      = link_to 'Vote AGAINST this proposal', vote_proposal_path(@proposal, :score=>-1)
+%h2{:style=>'clear:both;'} Proposal Progress
 %table
   %tr
     %th{:style=>'width:130px'} Changed At
@@ -17,6 +36,11 @@
       %td=h sc.to_state.name
       %td=h sc.to_state.description
 %h2 Voters
-%ul{:class=>'voters'}
-  - @proposal.voters.each do |uc| 
-    %li=character(uc[0].character)+" (#{uc[1]})"
+- if @proposal.voters and @proposal.voters.length > 0
+  %ul{:class=>'voters'}
+    - @proposal.voters.each do |uc| 
+      %li=character(uc[0].character)+" (#{uc[1]})"
+  .footer{:style=>'clear:both;'}
+- else
+  %p
+    Nobody has voted on this proposal yet!
