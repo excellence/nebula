@@ -16,3 +16,7 @@
       %td= sc.from_state ? h(sc.from_state.name) : 'N/A'
       %td=h sc.to_state.name
       %td=h sc.to_state.description
+%h2 Voters
+%ul{:class=>'voters'}
+  - @proposal.voters.each do |uc| 
+    %li=character(uc[0].character)+" (#{uc[1]})"

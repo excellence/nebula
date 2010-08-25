@@ -208,6 +208,7 @@ input,textarea,.tagHandlerContainer
   :padding
     :left 10px
     :right 10px
+  :margin-bottom 2px
 .votes
   :float left
   :height 44px
@@ -223,26 +224,17 @@ input,textarea,.tagHandlerContainer
   :font-size 24px
   :height 22px
   :margin-bottom 4px
-.small_votes
-  :float left
-  :padding 4px
-  :margin-left 4px
-  :background = !reallydark
-  :border = 1px solid !light
-  :text-align center
 .proposal_summary
   :float left
-  :width 805px
+  :width 800px
   :padding 10px
     :top 0px
   :font-size 24px
 .proposal_author
   :float right
-  :font-size 12px
+  :font-size 10px
   :margin 2px
   :padding 2px
-  :background = !reallydark
-  :border = 1px solid !light
   :text-transform lowercase
   img
     :vertical-align top
@@ -269,10 +261,24 @@ input,textarea,.tagHandlerContainer
   :border = 1px solid !light
   a
     :color = #999999
+// 'small' style proposals
+.small_votes
+  :float left
+  :padding 3px
+    :left 5px
+    :right 5px
+  :margin-left 4px
+  :background = !reallydark
+  :border = 1px solid !light
+  :text-align center
+  :font-weight bold
+  :overflow hidden
 .small_proposal
   :float left
   :overflow hidden
   :width 930px
+  :height 27px
+  :border-bottom 1px solid #222
   :padding
     :left 10px
     :right 10px
@@ -281,11 +287,13 @@ input,textarea,.tagHandlerContainer
   :width 800px
   :padding 2px
     :top 0px
+    :left 10px
   :font-size 11px
 .small_proposal_author
   :float right
   :text-transform lowercase
   :font-size 10px
+  :margin-top 5px
   img
     :vertical-align top
 .small_tag
@@ -297,6 +305,18 @@ input,textarea,.tagHandlerContainer
   :border = 1px solid !light
   a
     :color = #999999
+.small_status_tag
+  :font-size 10px
+  :float left
+  :margin 2px
+  :padding 2px
+  :background = !reallydark + #220000
+  :border = 1px solid !light
+  :text-transform uppercase
+  :font-weight bold
+  :color = #FF9000
+  a
+    :color = #FF9000
 .small_proposal_text
   :float left
   :margin-top 5px
@@ -304,6 +324,7 @@ input,textarea,.tagHandlerContainer
   :margin-right 5px
 .small_proposal_tags
   :float left
+// Proposal view page
 .proposal_body
   :padding 5px
   :line-height 120%
@@ -312,3 +333,10 @@ input,textarea,.tagHandlerContainer
   :font-size 12px
   :margin 10px
   :clear both
+.voters
+  :list-style none
+  li
+    :display inline
+    :padding 4px
+    :background = !reallydark
+    :border = 1px solid !light

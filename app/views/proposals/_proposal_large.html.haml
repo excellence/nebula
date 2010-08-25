@@ -8,11 +8,9 @@
   .proposal_summary
     =link_to h(proposal.title), proposal_path(proposal)
     .proposal_tags
-      .status_tag
-        = proposal.state.name
+      .status_tag= proposal.state.name
       - proposal.tags.map{|t|t.name}.each do |tag| 
         .tag=link_to tag, "/tags/#{tag}"
     .proposal_author
       submitted by 
-      = proposal.character.name
-      = image_tag proposal.character.portrait(16)
+      =character(proposal.character)

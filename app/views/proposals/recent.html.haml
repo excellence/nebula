@@ -1,2 +1,4 @@
 %h1=title 'Recent Proposals'
-= render :partial => 'list', :locals => {:proposals=>@proposals}
+= render :partial => 'list', :locals => {:proposals=>(@proposals[0..4] rescue @proposals)}
+- if @proposals.length > 4
+  = render :partial => 'small_list', :locals => {:proposals=>(@proposals[5..-1] rescue [])}

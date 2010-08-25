@@ -214,7 +214,8 @@ input, textarea, .tagHandlerContainer {
   overflow: hidden;
   width: 930px;
   padding-left: 10px;
-  padding-right: 10px; }
+  padding-right: 10px;
+  margin-bottom: 2px; }
 
 .votes {
   float: left;
@@ -233,28 +234,18 @@ input, textarea, .tagHandlerContainer {
   height: 22px;
   margin-bottom: 4px; }
 
-.small_votes {
-  float: left;
-  padding: 4px;
-  margin-left: 4px;
-  background: #131313;
-  border: 1px solid #3e3e3e;
-  text-align: center; }
-
 .proposal_summary {
   float: left;
-  width: 805px;
+  width: 800px;
   padding: 10px;
     padding-top: 0px;
   font-size: 24px; }
 
 .proposal_author {
   float: right;
-  font-size: 12px;
+  font-size: 10px;
   margin: 2px;
   padding: 2px;
-  background: #131313;
-  border: 1px solid #3e3e3e;
   text-transform: lowercase; }
   .proposal_author img {
     vertical-align: top; }
@@ -285,10 +276,24 @@ input, textarea, .tagHandlerContainer {
   .tag a {
     color: #999999; }
 
+.small_votes {
+  float: left;
+  padding: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+  margin-left: 4px;
+  background: #131313;
+  border: 1px solid #3e3e3e;
+  text-align: center;
+  font-weight: bold;
+  overflow: hidden; }
+
 .small_proposal {
   float: left;
   overflow: hidden;
   width: 930px;
+  height: 27px;
+  border-bottom: 1px solid #222222;
   padding-left: 10px;
   padding-right: 10px; }
 
@@ -297,12 +302,14 @@ input, textarea, .tagHandlerContainer {
   width: 800px;
   padding: 2px;
     padding-top: 0px;
+    padding-left: 10px;
   font-size: 11px; }
 
 .small_proposal_author {
   float: right;
   text-transform: lowercase;
-  font-size: 10px; }
+  font-size: 10px;
+  margin-top: 5px; }
   .small_proposal_author img {
     vertical-align: top; }
 
@@ -315,6 +322,19 @@ input, textarea, .tagHandlerContainer {
   border: 1px solid #3e3e3e; }
   .small_tag a {
     color: #999999; }
+
+.small_status_tag {
+  font-size: 10px;
+  float: left;
+  margin: 2px;
+  padding: 2px;
+  background: #351313;
+  border: 1px solid #3e3e3e;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #ff9000; }
+  .small_status_tag a {
+    color: #ff9000; }
 
 .small_proposal_text {
   float: left;
@@ -333,3 +353,11 @@ input, textarea, .tagHandlerContainer {
   font-size: 12px;
   margin: 10px;
   clear: both; }
+
+.voters {
+  list-style: none; }
+  .voters li {
+    display: inline;
+    padding: 4px;
+    background: #131313;
+    border: 1px solid #3e3e3e; }

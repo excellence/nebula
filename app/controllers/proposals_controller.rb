@@ -4,8 +4,8 @@ class ProposalsController < ApplicationController
   before_filter :require_primary_character!, :only => [:new, :edit, :update, :create, :vote]
   
   def index
-    @popular_proposals = Proposal.find(:all, :limit => 10, :order => 'score DESC', :include => [:character, :tags])
-    @recent_proposals = Proposal.find(:all, :limit => 5, :order => 'created_at DESC', :include => [:character, :tags])
+    @popular_proposals = Proposal.find(:all, :limit => 10, :order => 'score DESC', :include => [:character, :tags, :state])
+    @recent_proposals = Proposal.find(:all, :limit => 5, :order => 'created_at DESC', :include => [:character, :tags, :state])
     respond_to do |format|
       format.html
       # TODO: Add JSON, XML formats
@@ -19,7 +19,7 @@ class ProposalsController < ApplicationController
   end
 
   def show
-    @proposal = Proposal.find(params[:id])
+    @proposal = Proposal.find(params[:id], :include=>[:tags, :state, :state_changes, :character])
     respond_to do |format|
       format.html
       # TODO: Add JSON, XML formats
@@ -72,7 +72,9 @@ class ProposalsController < ApplicationController
   def vote
     proposal_exists?
     @proposal = Proposal.find(params[:id])
-
+    current_user.accounts.each do |a|
+      @proposal.vote!(a.id, params[:score].to_i)
+    end
   end
   
   private

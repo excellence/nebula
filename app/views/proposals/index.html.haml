@@ -1,4 +1,4 @@
 %h1=title 'Proposals'
-= render :partial => 'list', :locals => {:proposals=>@popular_proposals}
-%h2 Recent Proposals
 = render :partial => 'list', :locals => {:proposals=>@recent_proposals}
+%h2 Popular Proposals
+= render :partial => 'small_list', :locals => {:proposals=>@popular_proposals}

@@ -1,0 +1,4 @@
+.proposals_list
+  - proposals.each do |proposal| 
+    = render :partial => 'proposal_small', :locals => {:proposal => proposal}
+.footer{:style=>'clear:both;'}
