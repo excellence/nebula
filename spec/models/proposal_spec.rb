@@ -106,12 +106,10 @@ describe Proposal do
     @proposal.votes.length.should == 0
   end
   
-  it "should add a disabled vote when passed an invalidated account" do
-    @proposal.vote!(@account.id,1)
-    @proposal.votes.first.enabled.should == false
-    @proposal.votes.first.value.should == 1
+  it "should raise a SecurityException when passed an invalidated account" do
+    lambda{@proposal.vote!(@account.id,1)}.should raise_error SecurityError
     @proposal.score.should == 0
-    @proposal.votes.length.should == 1
+    @proposal.votes.length.should == 0
   end
   
   it "should do nothing when passed a value of 0" do

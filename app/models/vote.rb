@@ -24,36 +24,4 @@ class Vote < ActiveRecord::Base
     end
   end
   
-  # This method will create or update a Vote on a Proposal from an Account.
-  # If the Account it is passed is not validated, the Vote will be recorded but not enabled.
-  def vote!(proposal, account, score)
-    # FIXME: Implement
-  end
-  
-  # Enable or disable a vote, and update the proposal's total accordingly.
-  def set_enabled!(enabled)
-    Proposal.transaction do
-      Vote.transaction do
-        if enabled
-          self.enabled = true
-          self.proposal.add_vote(self)
-        else
-          self.enabled = false
-          self.proposal.remove_vote(self)
-        end
-        self.save!
-        self.proposal.save!
-      end
-    end
-  end
-  
-  # Enable this vote using set_enabled!
-  def enable!
-    set_enabled!(true)
-  end
-  # Disable this vote using set_enabled!
-  def disable!
-    set_enabled!(false)
-  end
-  
 end

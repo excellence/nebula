@@ -41,24 +41,4 @@ describe Vote do
     @vote.should_not be_valid
   end
   
-  it "should update a proposal's vote count when being disabled and enabled" do
-    @vote.attributes = @valid_attributes
-    @vote.proposal = Factory.build(:proposal)
-    @vote.value = 1
-    @vote.save!
-
-    lambda do
-      @vote.disable!
-    end.should change { @vote.proposal.score }.by(-1)
-
-    lambda do
-      @vote.enable!
-    end.should change { @vote.proposal.score }.by(1)
-
-    lambda do
-      @vote.disable!
-      @vote.enable!
-    end.should change { @vote.proposal.score }.by(0)
-  end
-  
 end

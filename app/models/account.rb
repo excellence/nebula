@@ -23,29 +23,33 @@ class Account < ActiveRecord::Base
   validates_numericality_of :api_uid
   validates_uniqueness_of :api_uid
   
-  before_save :handle_vote_status
-  before_destroy :reassign_primary_on_account
-  after_save :reassign_primary_on_account
+  before_save :reassign_primary_on_account
+  before_save :reassign_votes
   
-  # This method handles marking votes this account owns as enabled or disabled when the state of the account changes based on API validation failing or not.
-  # FIXME: Currently touches all votes even if there's nothing to do, ie updating API key will force refresh and enable all votes when validated.
-  def handle_vote_status
-    if self.validated? 
-      self.votes.each do |vote|
-        vote.enable!
-      end
-    else
-      self.votes.each do |vote|
-        vote.disable!
-      end
-    end
-    return true
-  end
   
   # Scans the account to make sure that the owning User does not have a character on this Account set as their primary; if they do, trigger autoselection.
   def reassign_primary_on_account
     if self.validated == false and self.characters.include?(self.user.character)
       self.user.autoselect_primary_character!(self.characters)
+    end
+    return true
+  end
+  
+  # For all Characters on this Account, set the Account for any Votes those Characters own to this Account.
+  # This prevents ghost votes on accounts when re-adding an account previously deleted from the system
+  # Does nothing if this Account is not validated, or if there are no characters on the account.
+  # Must be run after every save.
+  # TODO: Scalability assessment.
+  def reassign_votes
+    if self.characters and self.characters.length > 0 and self.validated
+      self.characters.each do |c|
+        Vote.transaction do
+          c.votes.each do |v|
+            v.account_id = self.id if v.account_id != self.id
+            v.save!
+          end
+        end
+      end
     end
     return true
   end
@@ -190,7 +194,7 @@ class Account < ActiveRecord::Base
       self.validated = false
     end
     self.save!
-  end  
+  end
   # Helper: Returns a new Reve::API object with API key, API user ID and character ID already initialized
   def reve
     Reve::API.new(self.api_uid, self.api_key, self.character_id)

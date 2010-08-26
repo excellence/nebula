@@ -51,6 +51,7 @@ class Proposal < ActiveRecord::Base
     account = Account.find(account_id, :include=>[:user, :character])
     raise ArgumentError, "No such account" unless account
     raise ArgumentError, "Invalid value for vote passed" unless [-1, 0, 1].include?(value) # Stops errant votes with wrong values
+    raise SecurityError, "Account is not validated" unless account.validated?
     raise SecurityError, "Proposal is in a state where voting is not allowed" if self.state && !self.state.can_vote?
     Proposal.transaction do
       Vote.transaction do
@@ -63,7 +64,6 @@ class Proposal < ActiveRecord::Base
           v.user = account.user
           v.character = account.character
           v.proposal = self
-          v.enabled = account.validated?
           v.value = value
           v.save!
           self.add_vote(v)
@@ -79,7 +79,6 @@ class Proposal < ActiveRecord::Base
             # Otherwise, we want to update the vote with the new value.
             self.remove_vote(v)
             v.value = value
-            v.enabled = account.validated?
             v.save!
             self.add_vote(v)
             self.save!
@@ -92,26 +91,25 @@ class Proposal < ActiveRecord::Base
   # Remove a vote from the score - this is not updating models, just the proposal's score column
   def remove_vote(vote)
     self.score = self.score - vote.value
-    self.enabled_votes = self.enabled_votes - 1
+    self.votes_count = self.votes_count - 1
   end
   
   # Add a vote to the score - this is not updating models, just the proposal's score column. Will only add a vote if the vote is enabled.
   def add_vote(vote)
-    return false unless vote.enabled?
     self.score = self.score + vote.value
-    self.enabled_votes = self.enabled_votes + 1
+    self.votes_count = self.votes_count + 1
   end
   
   # This sets the score stored in the Proposal's score column to be the total score of all votes enabled on this proposal
   # This should not be called often - all methods working on Votes and Proposals should always update the score column accordingly.
   # Messy and hits everything. Don't do it unless you have to.
   def recalculate_score!
-    self.score = Vote.find(:all, :conditions => ['proposal_id = ? AND value IN (-1, 1) AND enabled',self.id], :select => 'value').map{|v|v.value}.sum
+    self.score = Vote.find(:all, :conditions => ['proposal_id = ? AND value IN (-1, 1)',self.id], :select => 'value').map{|v|v.value}.sum
     self.save!
   end
   
-  def recalculate_enabled_votes!
-    self.enabled_votes = self.votes.find(:all, :conditions => {:enabled=>true}).length
+  def recalculate_votes_count!
+    self.votes_count = self.votes.find(:all).length
     self.save!
   end
   
@@ -123,7 +121,7 @@ class Proposal < ActiveRecord::Base
   # Returns (in hopefully a DB/RAM-friendly manner) an array of [[User, count], ...] where count is the number of enabled Votes this User has on the Proposal.
   def voters
     # Get an array of User IDs, with duplicate user IDs for multiple votes.
-    user_ids = self.votes.find(:all, :select=>'user_id', :conditions=>{:enabled=>true}).map{|v|v.user_id}
+    user_ids = self.votes.find(:all, :select=>'user_id').map{|v|v.user_id}
     # Turn this into an array of [id, count]
     uc = user_ids.inject(Hash.new(0)){|h,x| h[x]+=1;h}.sort
     # Now load users - note we get all users in one query here, plus characters since we'll want them.

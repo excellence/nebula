@@ -55,6 +55,28 @@ describe Account do
     end
   end
   
+  describe "re-adding a previously deleted account" do
+    before(:each) do
+      Reve::API.characters_url = XML_BASE + 'two_characters.xml'
+      Reve::API.character_sheet_url = XML_BASE + 'character_sheet_valid.xml'
+      Reve::API.corporation_sheet_url = XML_BASE + 'corporation_sheet.xml'
+      Reve::API.alliances_url =  XML_BASE + 'alliance_list.xml'
+    end
+    
+    it "should update the account ID of votes owned by characters on the account" do
+      @account = Factory.create(:validated_account)
+      @account.save!
+      @proposal = Factory.create(:validated_proposal)
+      @proposal.save!
+      @proposal.vote!(@account.id,1)
+      @account.destroy
+      @account = Factory.create(:account, :validated => true, :character => Character.find_by_name('Makurid validated'), :api_uid => 1234)
+      @account.save!
+      @proposal.votes.first.account_id.should == @account.id
+    end
+    
+  end
+  
   describe "validating account data" do
     before(:each) do
       Reve::API.characters_url = XML_BASE + 'two_characters.xml'
