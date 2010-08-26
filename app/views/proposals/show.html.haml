@@ -4,12 +4,18 @@
 .vote_buttons
   - if @user_votes and @user_votes.length > 0
     - if @user_votes.first.value == 1
+      - if @user_votes.length != current_user.validated_accounts.length
+        .vote_button_for
+          = link_to 'Vote FOR this proposal with your other account(s)', vote_proposal_path(@proposal, :score=>1)
       .vote_button_remove
         = link_to 'Remove your vote FOR this proposal', vote_proposal_path(@proposal, :score=>0)
     - else
       .vote_button_for
         = link_to 'Vote FOR this proposal', vote_proposal_path(@proposal, :score=>1)
     - if @user_votes.first.value == -1
+      - if @user_votes.length != current_user.validated_accounts.length
+        .vote_button_for
+          = link_to 'Vote FOR this proposal with your other account(s)', vote_proposal_path(@proposal, :score=>1)
       .vote_button_remove
         = link_to 'Remove your vote AGAINST this proposal', vote_proposal_path(@proposal, :score=>0)
     - else
