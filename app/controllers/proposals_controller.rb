@@ -74,7 +74,7 @@ class ProposalsController < ApplicationController
     @proposal = Proposal.find(params[:id])
     proposal_exists?
     v = true
-    current_user.accounts.each do |a|
+    current_user.validated_accounts.each do |a|
       if !@proposal.vote!(a.id, params[:score].to_i)
         v = false
       end
@@ -84,6 +84,13 @@ class ProposalsController < ApplicationController
         flash[:info] = "Your #{current_user.accounts.length > 1 ? 'votes have' : 'vote has'} been removed from this proposal successfully"
       else
         flash[:info] = "Your #{current_user.accounts.length > 1 ? 'votes have' : 'vote has'} been cast on this proposal successfully"
+      end
+      if current_user.invalidated_accounts.length > 0
+        if current_user.invalidated_accounts.length > 1
+          flash[:error] = "Several of your accounts have not been validated, and as such their votes have not been cast"
+        else
+          flash[:error] = "One of your accounts has not been validated, and as such that account's vote has not been cast"
+        end
       end
     else
       flash[:error] = "One or more of your votes could not be registered. This may be due to an account that needs validation."
