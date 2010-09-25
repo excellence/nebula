@@ -67,4 +67,4 @@ Production environments can be set up using:
 
 Nebula uses test driven development. To run the tests and see what passes and what fails, run `rake spec`. This will run all the specs in the spec folder, and produce output in rspec.html in the root directory of the project.
 
-If you commit to the Nebula main repository, your build will be executed by the continuous integration server, and build output displayed in the aforementioned IRC channel.
+If you commit to the Nebula main repository, your build will be executed by the continuous integration server, and build output displayed in the aforementioned IRC channel as well as on the ci.mmmetrics.co.uk website.
